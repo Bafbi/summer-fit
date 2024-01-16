@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useEffect, useRef, ReactElement,useState } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
@@ -184,9 +183,12 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
         ]
     }
 ]
+
+
   // ... Autres styles ...
   const MyMapComponent = () => {
     const ref = useRef<HTMLDivElement>(null);
+    const map = useRef<google.maps.Map | null>(null);
     const [selectedMarker, setSelectedMarker] = useState<any>(null); // Pour stocker le marqueur sélectionné
     const [markersData] = useState([
       {
@@ -201,7 +203,7 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
       {
         id: 2,
         lat: 50.633333,
-        lng: 3.066667,
+        lng: 3.266667,
         title: "Salle Lille 2",
         link: "/poule",
         address: "456 Avenue des Sports, Lille",
@@ -210,12 +212,26 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
       // Ajoutez d'autres données de salle ici
     ]);
   
-    const map = useRef<google.maps.Map | null>(null); // Référence à l'objet de carte
-  
-    useEffect(() => {
-      if (ref.current && typeof google !== "undefined") {
+
+    const defaultLocation: google.maps.LatLngLiteral = {
+        lat: 50.6333,
+        lng: 3.0667
+      };
+
+    const initializeMap = (position: GeolocationPosition | null) => {
+        let center: google.maps.LatLngLiteral;
+
+        if (position) {
+            center = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+          } else {
+            center = defaultLocation; // Utiliser la position par défaut de Lille
+          }
+      if (ref.current  ) {
         map.current = new google.maps.Map(ref.current, {
-          center: { lat: 50.633333, lng: 3.066667 },
+          center:  center ,
           zoom: 11,
           styles: customMapStyles,
           streetViewControl: false,
@@ -226,7 +242,7 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
           panControl: false,
           fullscreenControl: true,
         });
-  
+       
         markersData.forEach((markerData) => {
           const marker = new google.maps.Marker({
             position: { lat: markerData.lat, lng: markerData.lng },
@@ -245,8 +261,19 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
           });
         });
       }
-    }, []);
-  
+    }
+    ;
+    useEffect(() => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => initializeMap(position),
+            () => initializeMap(null) // Géolocalisation échouée, utiliser Lille par défaut
+          );
+        } else {
+          console.error("La géolocalisation n'est pas prise en charge par ce navigateur");
+          initializeMap(null); 
+        }
+      }, []);
     // Utilisez useEffect pour centrer la carte lorsque selectedMarker change
     useEffect(() => {
       if (selectedMarker && map.current) {
