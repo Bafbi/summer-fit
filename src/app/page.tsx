@@ -1,10 +1,69 @@
 import Link from "next/link";
 
-import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
+import CardProject from "~/app/_components/molecules/CardProject";
+import Adidas from "../../public/assets/images/Adidass.png";
+import Fond from "../../public/assets/images/Fond.png";
 
 export default async function Home() {
+  const projects = [
+    {
+      projectId: 1,
+      startup: "Unitevent",
+      description: "La soirée en un clic !",
+      expertise: "Application sur-mesure",
+      image: Fond,
+      logo: Adidas,
+      link: "/ok",
+    },
+    {
+      projectId: 2,
+      startup: "Unitevent",
+      description: "La soirée en un clic !",
+      expertise: "Application sur-mesure",
+      image: Fond,
+      logo: Adidas,
+      link: "#",
+    },
+    {
+      projectId: 3,
+      startup: "Unitevent",
+      description: "La soirée en un clic !",
+      expertise: "Application sur-mesure",
+      image: Fond,
+      logo: Adidas,
+      link: "#",
+    },
+    {
+      projectId: 4,
+      startup: "Unitevent",
+      description: "La soirée en un clic !",
+      expertise: "Application sur-mesure",
+      image: Fond,
+      logo: Adidas,
+      link: "#",
+    },
+    {
+      projectId: 5,
+      startup: "Unite",
+      description: "La soirée en un clic !",
+      expertise: "Application sur-mesure",
+      image: Fond,
+      logo: Adidas,
+      link: "#",
+    },
+    {
+      projectId: 6,
+      startup: "Unitevent",
+      description: "La soirée en un clic !",
+      expertise: "Application sur-mesure",
+      image: Fond,
+      logo: Adidas,
+      link: "#",
+    },
+  ];
+
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
@@ -18,6 +77,8 @@ export default async function Home() {
     salleId: 
 
   return (
+    //? Liste des projets réalisés
+
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
@@ -69,27 +130,24 @@ export default async function Home() {
           </div>
         </div>
 
-        <CrudShowcase />
+      </div>
+
+      <div className="mx-auto max-w-5xl px-16 max-md:px-6">
+        <div className="grid grid-cols-2 gap-x-10 gap-y-10 max-md:grid-cols-1 max-md:gap-x-7 max-md:gap-y-5">
+          {projects.map((project) => (
+            <CardProject
+              key={project.projectId}
+              startup={project.startup}
+              description={project.description}
+              expertise={project.expertise}
+              image={project.image}
+              logo={project.logo}
+              link={project.link}
+            />
+          ))}
+        </div>
       </div>
     </main>
   );
 }
 
-async function CrudShowcase() {
-  const session = await getServerAuthSession();
-  if (!session?.user) return null;
-
-  const latestPost = await api.post.getLatest.query();
-
-  return (
-    <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
-
-      <CreatePost />
-    </div>
-  );
-}
