@@ -72,9 +72,6 @@ export default async function Home() {
     userRole = await api.user.getRole.query();
   }
 
-  api.reservation.newReservation.mutate({
-    datetime: new Date(),
-    salleId: 
 
   return (
     //? Liste des projets réalisés

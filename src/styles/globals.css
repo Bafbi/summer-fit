@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-    background-color: #0d1117;
+@layer components {
+  body {
+    @apply bg-background-300;
   }
+}
   
