@@ -26,6 +26,36 @@ model Post {
     @@index([name])
 }
 
+model Images {
+   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+   name      String 
+   url       String
+   salleId     String   @db.ObjectId
+   salle       Salle    @relation(fields: [salleId], references: [id]) 
+}
+
+model Machine {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    nbr_machine   Int
+    salleId     String   @db.ObjectId
+    salle       Salle    @relation(fields: [salleId], references: [id])
+}
+
+model Salle {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    adresse   String 
+    capacite  Int
+    nbr_coach Int
+    num_tel   String
+    heure_ouverture String
+    heure_fermeture String
+    machine   Machine[]
+    images    Images[]
+    reservation Reservation[]
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -45,12 +75,34 @@ model Account {
     @@unique([provider, providerAccountId])
 }
 
+model Reservation {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    date      DateTime
+    salleId     String   @db.ObjectId
+    salle       Salle    @relation(fields: [salleId], references: [id])
+    userId       String   @db.ObjectId @unique
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model Session {
     id           String   @id @default(auto()) @map("_id") @db.ObjectId
     sessionToken String   @unique
     userId       String   @db.ObjectId 
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+    USER
+    COACH
+    ADMIN
+}
+
+enum Abonnement {
+    BRONZE
+    ARGENT
+    OR
+    DIAMANT
 }
 
 model User {
@@ -61,7 +113,10 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    role          Role?
+    abonnement    Abonnement?
     posts         Post[]
+    reservations  Reservation?
 }
 
 model VerificationToken {
