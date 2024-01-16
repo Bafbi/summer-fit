@@ -6,8 +6,12 @@ import { api } from "~/trpc/server";
 
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
-  const userRole = await api.user.getRole.query();
   const session = await getServerAuthSession();
+
+  let userRole = null;
+  if (session) {
+    userRole = await api.user.getRole.query();
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
@@ -46,7 +50,11 @@ export default async function Home() {
 
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-white">
-              {session && <span>Logged in as {session.user?.name} : {userRole?.role}</span>}
+              {session && (
+                <span>
+                  Logged in as {session.user?.name} : {userRole?.role}
+                </span>
+              )}
             </p>
             <Link
               href={session ? "/api/auth/signout" : "/api/auth/signin"}
