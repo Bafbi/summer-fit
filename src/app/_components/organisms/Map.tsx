@@ -1,8 +1,10 @@
 "use client";
 
 import { Status, Wrapper } from "@googlemaps/react-wrapper";
+import { Salle } from "@prisma/client";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { env } from "~/env";
+import { RouterOutputs } from "~/trpc/shared";
 
 const customMapStyles: google.maps.MapTypeStyle[] = [
   // Insérez ici le tableau de styles que vous avez fourni
@@ -177,31 +179,13 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
   },
 ];
 
-function MapComponent() {
+function MapComponent(props : {salles: RouterOutputs["halls"]["getAll"]}) {
+    const {salles} = props
+
   const ref = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
-  const [selectedMarker, setSelectedMarker] = useState<any>(null); // Pour stocker le marqueur sélectionné
-  const [markersData] = useState([
-    {
-      id: 1,
-      lat: 50.633333,
-      lng: 3.066667,
-      title: "Salle Lille 1",
-      link: "/poule",
-      address: "123 Rue de Lille, Lille",
-      openingHours: "Lun-Ven: 8h-20h, Sam-Dim: 10h-18h",
-    },
-    {
-      id: 2,
-      lat: 50.633333,
-      lng: 3.266667,
-      title: "Salle Lille 2",
-      link: "/poule",
-      address: "456 Avenue des Sports, Lille",
-      openingHours: "Lun-Ven: 7h-22h, Sam-Dim: 9h-17h",
-    },
-    // Ajoutez d'autres données de salle ici
-  ]);
+  const [selectedMarker, setSelectedMarker] = useState<Salle | null>(null); // Pour stocker le marqueur sélectionné
+  
 
   const defaultLocation: google.maps.LatLngLiteral = {
     lat: 50.6333,
@@ -233,11 +217,11 @@ function MapComponent() {
         fullscreenControl: true,
       });
 
-      markersData.forEach((markerData) => {
+      props.salles.forEach((salle) => {
         const marker = new google.maps.Marker({
-          position: { lat: markerData.lat, lng: markerData.lng },
+          position: { lat: salle.latitude, lng: salle.longitude },
           map: map.current,
-          title: markerData.title,
+          title: salle.name,
           icon: {
             url: "/Localisation.png",
             size: new google.maps.Size(40, 40),
@@ -247,7 +231,7 @@ function MapComponent() {
 
         // Ajouter un écouteur d'événement pour centrer la carte sur le marqueur lorsque le marqueur est cliqué
         marker.addListener("click", () => {
-          setSelectedMarker(markerData); // Définir le marqueur sélectionné au clic
+          setSelectedMarker(salle); // Définir le marqueur sélectionné au clic
         });
       });
     }
@@ -269,9 +253,9 @@ function MapComponent() {
   useEffect(() => {
     if (selectedMarker && map.current) {
       const marker = new google.maps.Marker({
-        position: { lat: selectedMarker.lat, lng: selectedMarker.lng },
+        position: { lat: selectedMarker.latitude, lng: selectedMarker.longitude },
         map: map.current,
-        title: selectedMarker.title,
+        title: selectedMarker.name,
         icon: {
           url: "/Localisation.png",
           size: new google.maps.Size(40, 40),
@@ -293,27 +277,36 @@ function MapComponent() {
         <select
           className="border-gray-300 block w-full rounded-md border p-2"
           onChange={(e) => {
-            const selectedId = parseInt(e.target.value);
-            const selectedMarkerData = markersData.find(
-              (markerData) => markerData.id === selectedId,
+            const selectedId = (e.target.value);
+            const selectedMarkerData = salles.find(
+              (salle) => salle.id === selectedId,
             );
-            setSelectedMarker(selectedMarkerData);
+            setSelectedMarker(selectedMarkerData ?? null);
           }}
           aria-label="Sélectionnez une salle"
         >
           <option value="">Sélectionnez une salle</option>
-          {markersData.map((markerData) => (
-            <option key={markerData.id} value={markerData.id}>
-              {markerData.title}
+          {salles.map((salle) => (
+            <option key={salle.id} value={salle.id}>
+              {salle.name}
             </option>
           ))}
         </select>
         {selectedMarker && (
           <div className="mt-4">
-            <h3 className="text-lg font-semibold">{selectedMarker.title}</h3>
-            <p className="text-gray-500 text-sm">{selectedMarker.address}</p>
+            <h3 className="text-lg font-semibold">{selectedMarker.name}</h3>
+            <p className="text-gray-500 text-sm">{selectedMarker.adresse}</p>
             <p className="text-gray-500 text-sm">
-              {selectedMarker.openingHours}
+              {selectedMarker.heure_ouverture}
+            </p>
+            <p className="text-gray-500 text-sm">
+              {selectedMarker.heure_fermeture}
+            </p>
+            <p className="text-gray-500 text-sm">
+              {selectedMarker.capacite}
+            </p>
+            <p className="text-gray-500 text-sm">
+              {selectedMarker.nbr_coach}
             </p>
           </div>
         )}
@@ -326,10 +319,10 @@ function MapComponent() {
   );
 }
 
-export default function Map() {
+export default function Map(props : {salles: RouterOutputs["halls"]["getAll"]}) {
   return (
     <Wrapper apiKey={env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} render={render}>
-      <MapComponent />
+      <MapComponent salles={props.salles} />
     </Wrapper>
   );
 }

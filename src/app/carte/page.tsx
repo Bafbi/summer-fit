@@ -22,7 +22,7 @@ import dynamic from "next/dynamic";
       </header>
       
         <main>
-            <Map />
+            <Map salles={salles} />
         </main>
     </div>
   )}
