@@ -26,6 +26,35 @@ model Post {
     @@index([name])
 }
 
+model Images {
+   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+   name      String 
+   url       String
+   salleId     String   @db.ObjectId
+   salle       Salle    @relation(fields: [salleId], references: [id]) 
+}
+
+model Machine {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    nbr_machine   Int
+    salleId     String   @db.ObjectId
+    salle       Salle    @relation(fields: [salleId], references: [id])
+}
+
+model Salle {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    name      String
+    adresse   String 
+    capacite  Int
+    nbr_coach Int
+    num_tel   String
+    heure_ouverture String
+    heure_fermeture String
+    machine   Machine[]
+    images    Images[]
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(auto()) @map("_id") @db.ObjectId
