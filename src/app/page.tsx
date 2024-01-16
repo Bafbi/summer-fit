@@ -8,6 +8,8 @@ export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();
 
+  testAPISalle();
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
@@ -79,4 +81,46 @@ async function CrudShowcase() {
       <CreatePost />
     </div>
   );
+}
+
+async function testAPISalle() {
+  console.log("On commence par récupéré toutes les salles déjà existantes");
+  await api.halls.getAll.query();
+  
+  //On créer 2 machines obj
+  let machine1 ={
+    name: "Velo",
+    nbr_machine : 10
+  }
+
+  let machine2 = {
+    name: "Tapis de Course",
+    nbr_machine : 5
+  }
+
+  //On créer 1 images
+
+  let image = {
+    name : "imageTest",
+    url : "test.png"
+  }
+
+  //On créer un nouvel objet data
+  let newHalls = {
+    name : "TestName",
+    adresse: "8 rue Delannoy",
+    capacite: 20,
+    nbr_coach : 3,
+    num_tel : "0678879032",
+    heure_ouverture : ["5h","5h","5h","5h","8h","8h","8h"],
+    heure_fermeture : ["20h","20h","20h","20h","23h","23h","23h"],
+    machines : [machine1,machine2],
+    images : [image]
+  }
+
+
+  //On appelle notre fonction
+  api.halls.createOne.mutate(newHalls);
+
+  await api.halls.getAll.query();
 }
