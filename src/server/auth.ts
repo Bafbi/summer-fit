@@ -1,4 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import type $Enums from "@prisma/client";
 import {
   getServerSession,
   type DefaultSession,
@@ -20,14 +21,20 @@ declare module "next-auth" {
     user: {
       id: string;
       // ...other properties
-      // role: UserRole;
+      // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+      role: $Enums.Role | null;
+      // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+      abonnement: $Enums.Abonnement | null;
     } & DefaultSession["user"];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    // ...other properties
+      // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+    role: $Enums.Role | null;
+      // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+    abonnement: $Enums.Abonnement | null;
+  }
 }
 
 /**
@@ -42,6 +49,10 @@ export const authOptions: NextAuthOptions = {
       user: {
         ...session.user,
         id: user.id,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        role: user.role,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        abonnement: user.abonnement,
       },
     }),
   },
