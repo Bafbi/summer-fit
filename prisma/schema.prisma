@@ -51,6 +51,8 @@ model Salle {
     num_tel   String
     heure_ouverture String[]
     heure_fermeture String[]
+    latitude Float
+    longitude Float
     machine   Machine[]
     images    Images[]
     reservation Reservation[]
