@@ -63,6 +63,8 @@ export const hallsRouter = createTRPCRouter({
         num_tel: z.string(),
         heure_ouverture: z.array(z.string()),
         heure_fermeture: z.array(z.string()),
+        latitude: z.number(),
+        longitude: z.number(),
         machines: z.array(z.object({ name: z.string(), nbr_machine: z.number() })),
         images: z.array(z.object({ name: z.string(), url: z.string() })) 
     }))
@@ -77,6 +79,8 @@ export const hallsRouter = createTRPCRouter({
             num_tel: input.num_tel,
             heure_ouverture: input.heure_ouverture,
             heure_fermeture: input.heure_fermeture,
+            latitude: input.latitude,
+            longitude: input.longitude,
             machine: {
               create: input.machines
             },
@@ -104,6 +108,8 @@ export const hallsRouter = createTRPCRouter({
             num_tel: z.string(),
             heure_ouverture: z.array(z.string()),
             heure_fermeture: z.array(z.string()),
+            latitude: z.number(),
+            longitude : z.number(),
             machines: z.array(z.object({ name: z.string(), nbr_machine: z.number() })),
             images: z.array(z.object({ name: z.string(), url: z.string() })) 
         })
@@ -119,6 +125,8 @@ export const hallsRouter = createTRPCRouter({
             num_tel: input.num_tel,
             heure_ouverture: input.heure_ouverture,
             heure_fermeture: input.heure_fermeture,
+            latitude: input.latitude,
+            longitude: input.longitude,
             machine: {
               create: input.machines
             },
