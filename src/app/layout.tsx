@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 import { cookies } from "next/headers";
 import { TRPCReactProvider } from "~/trpc/react";
-import Preloader from "./_components/atoms/Preloader";
+
 
 export const metadata = {
   title: "Summer Fit® | Gestion de Salle de Sport",
@@ -18,7 +18,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <TRPCReactProvider cookies={cookies().toString()}>
-        <Preloader></Preloader>
           {children}
         </TRPCReactProvider>
       </body>
