@@ -6,6 +6,7 @@ import { api } from "~/trpc/server";
 
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
+  const userRole = await api.user.getRole.query();
   const session = await getServerAuthSession();
 
   return (
@@ -45,7 +46,7 @@ export default async function Home() {
 
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-white">
-              {session && <span>Logged in as {session.user?.name}</span>}
+              {session && <span>Logged in as {session.user?.name} : {userRole?.role}</span>}
             </p>
             <Link
               href={"app/carte/carte.tsx"}
