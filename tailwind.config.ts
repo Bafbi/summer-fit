@@ -1,5 +1,4 @@
 import { type Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 import {withMaterialColors} from 'tailwind-material-colors';
 
 const config: Config = {
@@ -7,7 +6,11 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        callingCode: ['var(--font1)'],
+        firaCode: ['var(--font2)'],
+        inter: ['var(--font3)'],
+        montserrat: ['var(--font4)'],
+        poppins: ['var(--font5)'],
       },
     },
   },
@@ -19,7 +22,5 @@ module.exports = withMaterialColors(config, {
   // Here, your base colors as HEX values
   // primary is required
   // secondary and/or tertiary are optional, if not set they will be derived from the primary color
-  primary: '#ff0000',
-  secondary: '#ffff00',
-  tertiary: '#0000ff',
+  primary: '#fceba3',
   });
