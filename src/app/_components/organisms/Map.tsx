@@ -297,16 +297,16 @@ function MapComponent(props : {salles: RouterOutputs["halls"]["getAll"]}) {
             <h3 className="text-lg font-semibold">{selectedMarker.name}</h3>
             <p className="text-gray-500 text-sm">{selectedMarker.adresse}</p>
             <p className="text-gray-500 text-sm">
-              {selectedMarker.heure_ouverture}
+              Ouvre à{selectedMarker.heure_ouverture}
             </p>
             <p className="text-gray-500 text-sm">
-              {selectedMarker.heure_fermeture}
+              Ferme à{selectedMarker.heure_fermeture}
             </p>
             <p className="text-gray-500 text-sm">
-              {selectedMarker.capacite}
+              Capacité de :{selectedMarker.capacite}
             </p>
             <p className="text-gray-500 text-sm">
-              {selectedMarker.nbr_coach}
+              {selectedMarker.nbr_coach} coach disponible
             </p>
           </div>
         )}
