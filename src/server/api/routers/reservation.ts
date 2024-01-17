@@ -39,10 +39,9 @@ export const reservationRouter = createTRPCRouter({
     }),
 
   getAll: protectedProcedure
-    .input(z.object({ id: z.string() }))
-    .query(async ({ ctx, input }) => {
-      return ctx.db.reservation.findUnique({
-        where: { userId: ctx.session.user.id, id: input.id },
+    .query(async ({ ctx }) => {
+      return ctx.db.reservation.findMany({
+        where: { userId: ctx.session.user.id },
         select: { salle: {
           select: { name: true, adresse: true, capacite: true}
         }}
