@@ -38,13 +38,17 @@ export const reservationRouter = createTRPCRouter({
       });
     }),
 
-  getAll: protectedProcedure
-    .query(async ({ ctx }) => {
-      return ctx.db.reservation.findMany({
-        where: { userId: ctx.session.user.id },
-        select: { salle: {
-          select: { name: true, adresse: true, capacite: true}
-        }}
-      });
-    }),
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.db.reservation.findMany({
+      where: { userId: ctx.session.user.id },
+      orderBy: { date: "asc" },
+      select: {
+        id: true,
+        date: true,
+        salle: {
+          select: { name: true, adresse: true, heure_ouverture: true, heure_fermeture: true },
+        },
+      },
+    });
+  }),
 });
