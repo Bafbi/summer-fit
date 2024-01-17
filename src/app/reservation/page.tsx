@@ -8,7 +8,8 @@ import { api } from "~/trpc/server";
 
 export async function Home() {
     const session = await getServerAuthSession();
-   
+    const reservations = await api.reservation.getAll.query();
+
 
 
   return (
