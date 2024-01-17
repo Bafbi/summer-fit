@@ -18,7 +18,7 @@ model Reservation {
 */
 
 export const reservationRouter = createTRPCRouter({
-  createPersonnal: protectedProcedure
+  createOne: protectedProcedure
     .input(z.object({ datetime: z.date(), salleId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       return ctx.db.reservation.create({
@@ -30,14 +30,22 @@ export const reservationRouter = createTRPCRouter({
       });
     }),
 
-  deleteMy: protectedProcedure.mutation(async ({ ctx }) => {
-    return ctx.db.reservation.delete({ where: { userId: ctx.session.user.id } });
-  }),
+  deleteOne: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.reservation.delete({
+        where: { id: input.id, userId: ctx.session.user.id },
+      });
+    }),
 
-  getMy: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.db.reservation.findUnique({
-      where: { userId: ctx.session.user.id },
-      include: { salle: true },
-    });
-  }),
+  getAll: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return ctx.db.reservation.findUnique({
+        where: { userId: ctx.session.user.id, id: input.id },
+        select: { salle: {
+          select: { name: true, adresse: true, capacite: true}
+        }}
+      });
+    }),
 });

@@ -11,7 +11,7 @@ export function CreateReservation(props: { salleId: string }) {
   const router = useRouter();
   const [datetime, setDatetime] = useState<Date>(new Date());
 
-  const createReservation = api.reservation.createPersonnal.useMutation({
+  const createReservation = api.reservation.createOne.useMutation({
     onSuccess: () => {
       router.refresh();
     },
