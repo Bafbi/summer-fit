@@ -5,6 +5,7 @@ import { api } from "~/trpc/server";
 import CardProject from "~/app/_components/molecules/CardProject";
 import Adidas from "../../public/assets/images/Adidass.png";
 import Fond from "../../public/assets/images/Fond.png";
+import { CreateReservation } from "~/app/_components/api/create-reservation";
 
 export default async function Home() {
   const projects = [
@@ -72,6 +73,9 @@ export default async function Home() {
     userRole = await api.user.getRole.query();
   }
 
+
+
+
   return (
     //? Liste des projets réalisés
 
@@ -125,6 +129,8 @@ export default async function Home() {
             </Link>
           </div>
         </div>
+
+        <CreateReservation salleId="65a7972b05b02b0409551ffb" />
 
       </div>
 

@@ -1,48 +1,26 @@
-import type { Config } from 'tailwindcss';
+import { type Config } from "tailwindcss";
+import {withMaterialColors} from 'tailwind-material-colors';
 
 const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',    
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: ["./src/**/*.tsx"],
   theme: {
-    colors: {
-      primary: {
-        light: '#ee8bf7',
-        DEFAULT: '#7945f7',
-        dark: '#8d12e4',
-      },
-      secondary: {
-        light: '#fceba3',
-        DEFAULT: '#fce277',
-        dark: '#cf8c67',
-      },
-      background: {
-        300: '#272e35',
-        200: '#1e252c',
-        100: '#171e25', 
-        DEFAULT: '#0d1117',
-      },
-      dialog: {
-        title: '#ccdae7',
-        DEFAULT: '#a7b5c4',
-      },
-      transparent: 'transparent',
-      black: '#000',
-      white: '#fff',
-    },
-    fontFamily: {
-      callingCode: ['var(--font1)'],
-      firaCode: ['var(--font2)'],
-      inter: ['var(--font3)'],
-      montserrat: ['var(--font4)'],
-      poppins: ['var(--font5)'],
-    },
     extend: {
+      fontFamily: {
+        callingCode: ['var(--font1)'],
+        firaCode: ['var(--font2)'],
+        inter: ['var(--font3)'],
+        montserrat: ['var(--font4)'],
+        poppins: ['var(--font5)'],
+      },
     },
   },
   plugins: [],
-};
-export default config;
+} satisfies Config;
+
+
+module.exports = withMaterialColors(config, {
+  // Here, your base colors as HEX values
+  // primary is required
+  // secondary and/or tertiary are optional, if not set they will be derived from the primary color
+  primary: '#fceba3',
+  });
