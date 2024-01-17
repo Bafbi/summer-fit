@@ -23,7 +23,7 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
     elementType: "geometry.stroke",
     stylers: [
       {
-        color: "#9c9c9c",
+        color: "#FFFFFF",
       },
     ],
   },
@@ -41,7 +41,7 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
     elementType: "all",
     stylers: [
       {
-        color: "#f2f2f2",
+        color: "#FFFF",
       },
     ],
   },
@@ -143,7 +143,7 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
     elementType: "all",
     stylers: [
       {
-        color: "#46bcec",
+        color: "#ee8bf7",
       },
       {
         visibility: "on",
@@ -155,7 +155,7 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
     elementType: "geometry.fill",
     stylers: [
       {
-        color: "#c8d7d4",
+        color: "#ee8bf7 ",
       },
     ],
   },
@@ -180,13 +180,35 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
 ];
 
 function MapComponent(props : {salles: RouterOutputs["halls"]["getAll"]}) {
-    const {salles} = props
-
+  const { salles } = props;
   const ref = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
-  const [selectedMarker, setSelectedMarker] = useState<Salle | null>(null); // Pour stocker le marqueur sélectionné
-  
+  const [selectedMarker, setSelectedMarker] = useState<Salle | null>(null);
+  const [searchTerm, setSearchTerm] = useState(""); // Ajouté pour la barre de recherche
 
+
+  const [showPopup, setShowPopup] = useState(false); // État pour le popup
+
+  // Gestionnaire de clic pour le bouton de réservation
+  const handleReservationClick = () => {
+    setShowPopup(true); // Afficher le popup
+  };
+
+  const filteredSalles = salles.filter((salle) =>
+  salle.name.toLowerCase().includes(searchTerm.toLowerCase())
+);  
+
+const [openingTime, setOpeningTime] = useState<number>();
+const [closingTime, setClosingTime] = useState<number>();
+const handleSalleClick = (salle: Salle) => {
+  setSelectedMarker(salle);
+  setSearchTerm(""); // Réinitialiser la barre de recherche
+  const openingTime = salle.heure_ouverture[0] ; // Utiliser une valeur par défaut si 'undefined' ou vide
+  const closingTime = salle.heure_fermeture[0]; // Utiliser une valeur par défaut si 'undefined' ou vide
+
+  setOpeningTime(openingTime);
+  setClosingTime(closingTime);
+};
   const defaultLocation: google.maps.LatLngLiteral = {
     lat: 50.6333,
     lng: 3.0667,
@@ -269,56 +291,145 @@ function MapComponent(props : {salles: RouterOutputs["halls"]["getAll"]}) {
     }
   }, [selectedMarker]);
 
+  const [isGood, setIsGood] = useState(true)
+
+
+
+  const closePopup = () => {
+    setShowPopup(false); // Cacher le popup
+  };
+  const [reservationDate, setReservationDate] = useState(new Date());
+  const [reservationTime, setReservationTime] = useState("");
+  const [duration, setDuration] = useState("");
+
+  useEffect(() => {
+    console.log(reservationTime);
+    
+    setIsGood((+reservationTime > (openingTime ?? 0)) && (+reservationTime < (closingTime ?? 24)))
+  }, [reservationTime])
+
+  const ReservationPopup = () => (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-5 rounded shadow-lg">
+        <h2>Réservation pour {selectedMarker?.name}</h2>
+        <form>
+        <div className="mb-3">
+            <label htmlFor="reservation-date" className="block mb-1">Date de réservation:</label>
+            <input 
+              type="date" 
+              id="reservation-date"
+              value={reservationDate.toISOString().split('T')[0]} 
+              onChange={(e) => setReservationDate(new Date(e.target.value))}
+            />
+          </div>
+      
+
+      <div className="mb-3">
+        <label htmlFor="reservation-time" className="block mb-1">Heure de réservation:</label>
+        <input 
+          type="time" 
+          id="reservation-time"
+          value={reservationTime} 
+          onChange={(e) => setReservationTime(e.target.value)}
+        />
+        <span>{isGood ? "correct" : "pas correct"}</span>
+        <span>{reservationTime}</span>
+      </div>
+
+          <div className="mb-3">
+            <label htmlFor="duration" className="block mb-1">Durée (en heures):</label>
+            <input 
+              type="text" 
+              id="duration"
+              placeholder="Durée" 
+              value={duration} 
+              onChange={(e) => setDuration(e.target.value)}
+            />
+          </div>
+
+          <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
+            Confirmer la réservation
+          </button>
+        </form>
+
+        <button onClick={() => setShowPopup(false)} className="mt-4 bg-red-500 hover:bg-red-700 text-black font-bold py-2 px-4 rounded">
+          Fermer
+        </button>
+      </div>
+    </div>
+  );
   return (
-    <div className="flex flex-col px-4 md:flex-row">
-      {/* Menu déroulant à gauche de la carte */}
-      <div className="max-h-screen w-full overflow-y-auto p-4 md:w-1/4">
-        <h2 className="mb-2 text-lg font-semibold">Salles</h2>
-        <select
-          className="border-gray-300 block w-full rounded-md border p-2"
-          onChange={(e) => {
-            const selectedId = (e.target.value);
-            const selectedMarkerData = salles.find(
-              (salle) => salle.id === selectedId,
-            );
-            setSelectedMarker(selectedMarkerData ?? null);
-          }}
-          aria-label="Sélectionnez une salle"
-        >
-          <option value="">Sélectionnez une salle</option>
-          {salles.map((salle) => (
-            <option key={salle.id} value={salle.id}>
-              {salle.name}
-            </option>
-          ))}
-        </select>
-        {selectedMarker && (
+      <div className="flex flex-col px-4 md:flex-row">
+        <div className="relative max-h-screen w-full overflow-y-auto p-4 md:w-1/4">
+          <h2 className="mb-2 text-lg font-semibold">Nos salles : </h2>
+          <input
+            type="text"
+            placeholder="Recherchez une salle"
+            className="border-gray-300 block w-full rounded-md border p-2"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            aria-label="Recherchez une salle"
+          />
+          <div className={`absolute z-10 mt-1 bg-white w-full rounded-md shadow-lg ${searchTerm ? 'block' : 'hidden'}`}>
+            {searchTerm && filteredSalles.map((salle) => (
+              <div
+                key={salle.id}
+                onClick={() => handleSalleClick(salle)}
+                className="cursor-pointer hover:bg-gray-200 p-2"
+              >
+                {salle.name}
+              </div>
+            ))}
+          </div>
+          <div className={`mt-${searchTerm ? filteredSalles.length * 8 : 0} p-2`}>
+            {selectedMarker && (
+      
           <div className="mt-4">
             <h3 className="text-lg font-semibold">{selectedMarker.name}</h3>
-            <p className="text-gray-500 text-sm">{selectedMarker.adresse}</p>
+            <div className="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+</svg>
+
+      {selectedMarker.adresse}
+    </div>
+   
+            <div className="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg>
+        {selectedMarker.heure_ouverture}-{selectedMarker.heure_fermeture}
+    </div>
+    <div className="flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+      </svg>
+      {selectedMarker.num_tel}
+    </div>
             <p className="text-gray-500 text-sm">
-              Ouvre à{selectedMarker.heure_ouverture}
+              Capacité de : {selectedMarker.capacite}
             </p>
             <p className="text-gray-500 text-sm">
-              Ferme à{selectedMarker.heure_fermeture}
+              {selectedMarker.nbr_coach} coach(s) disponible
             </p>
-            <p className="text-gray-500 text-sm">
-              Capacité de :{selectedMarker.capacite}
-            </p>
-            <p className="text-gray-500 text-sm">
-              {selectedMarker.nbr_coach} coach disponible
-            </p>
+          <button
+            onClick={handleReservationClick}
+            className="mt-4 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+          >
+            Réserver un créneau
+          </button>
           </div>
-        )}
+            )}
+             {showPopup && <ReservationPopup />}
       </div>
-      {/* Carte à droite (pour mobile et ordinateur) */}
+      </div>
       <div className="border-gray-300 mt-4 w-full border md:ml-72 md:mr-2 md:mt-0 md:w-full md:max-w-[400px]">
         <div ref={ref} className="h-[400px]" />
       </div>
     </div>
   );
 }
-
 export default function Map(props : {salles: RouterOutputs["halls"]["getAll"]}) {
   return (
     <Wrapper apiKey={env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} render={render}>
