@@ -1,7 +1,6 @@
 import "~/styles/globals.css";
 import { cookies } from "next/headers";
 import { TRPCReactProvider } from "~/trpc/react";
-import Preloader from "./_components/atoms/Preloader";
 
 export const metadata = {
   title: "Summer Fit® | Gestion de Salle de Sport",

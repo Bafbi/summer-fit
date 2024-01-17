@@ -31,7 +31,7 @@ model Images {
    name      String 
    url       String
    salleId     String   @db.ObjectId
-   salle       Salle    @relation(fields: [salleId], references: [id]) 
+   salle       Salle    @relation(fields: [salleId], references: [id], onDelete: Cascade) 
 }
 
 model Machine {
@@ -39,7 +39,7 @@ model Machine {
     name      String
     nbr_machine   Int
     salleId     String   @db.ObjectId
-    salle       Salle    @relation(fields: [salleId], references: [id])
+    salle       Salle    @relation(fields: [salleId], references: [id], onDelete: Cascade)
 }
 
 model Salle {
