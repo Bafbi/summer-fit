@@ -3,8 +3,8 @@ import Link from "next/link";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 import CardProject from "~/app/_components/molecules/CardProject";
-import Adidas from "../../public/assets/images/Adidass.png";
-import Fond from "../../public/assets/images/Fond.png";
+import Adidas from "~/../public/assets/images/Adidass.png";
+import Fond from "~/../public/assets/images/Fond.png";
 
 export default async function Home() {
   const projects = [
