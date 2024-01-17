@@ -1,4 +1,6 @@
 // Importez les dépendances nécessaires
+import { $Enums } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import {
   createTRPCRouter,
@@ -7,16 +9,21 @@ import {
 } from "~/server/api/trpc";
 
 
+const prisma = new PrismaClient()
 // Définissez les plans d'abonnement avec des clés valides
-const subscriptionPlans: { [key in 'bronze' | 'Argent' | 'Or' | 'Diamant']: number } = {
-    bronze: 20,
-    Argent: 50,
-    Or: 100,
-    Diamant: 200,
+const subscriptionPlans: { [key in 'BRONZE' | 'ARGENT' | 'OR' | 'DIAMANT']: number } = {
+    BRONZE: 20,
+    ARGENT: 50,
+    OR: 100,
+    DIAMANT: 200,
 };
 
+/*l'input devra etre de la forme
+{
+    plan : "bronze"
+}*/
 // Créez un schéma de validation pour le choix du plan d'abonnement
-const subscriptionPlanSchema = z.enum(['bronze', 'Argent', 'Or', 'Diamant']);
+const subscriptionPlanSchema = z.enum(['BRONZE', 'ARGENT', 'OR', 'DIAMANT']);
 
 // Durée de la simulation d'appel à une API de paiement (1 seconde)
 const paymentSimulationDelay = 1000;
@@ -28,24 +35,26 @@ export const subscriptionRouter = createTRPCRouter({
     return subscriptionPlans;
   }),
 
-  // Procédure protégée pour l'achat d'un abonnement
+  // Procédure protégée pour l'achat d'un abonnement  
   purchaseSubscription: protectedProcedure 
     .input(z.object({ plan: subscriptionPlanSchema }))
     .mutation(async ({ ctx, input }) => {
       const selectedPlan = input.plan;
       const amount = subscriptionPlans[selectedPlan];
+    console.log(amount); 
       
 
       // Intégrer un système de paiement réel ici (simulé par une pause)
       await new Promise((resolve) => setTimeout(resolve, paymentSimulationDelay));
 
       // Enregistrez l'achat dans la base de données
-      const purchase = await ctx.db.subscription.create({
-        data: {
-          user: { connect: { id: ctx.session.user.id } },
-          plan: selectedPlan,
-          amount,
+      const purchase = await ctx.db.user.update({
+        where: {
+            id: ctx.session.user.id
         },
+        data: {
+            abonnement: $Enums.Abonnement[selectedPlan]
+        }
       });
 
       return { success: true, purchase };
@@ -53,10 +62,6 @@ export const subscriptionRouter = createTRPCRouter({
 
   // Procédure protégée pour obtenir les abonnements de l'utilisateur actuel
   getUserSubscriptions: protectedProcedure.query(async ({ ctx }) => {
-    const userSubscriptions = await ctx.db.subscription.findMany({
-      where: { user: { id: ctx.session.user.id } },
-    });
-
-    return userSubscriptions;
+    return ctx.session.user.abonnement;
   }),
 });
