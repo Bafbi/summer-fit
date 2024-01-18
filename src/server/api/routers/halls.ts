@@ -1,4 +1,3 @@
-import { error } from "console";
 import { z } from "zod";
 
 import {
@@ -61,8 +60,8 @@ export const hallsRouter = createTRPCRouter({
         capacite: z.number(),
         nbr_coach: z.number(),
         num_tel: z.string(),
-        heure_ouverture: z.array(z.string()),
-        heure_fermeture: z.array(z.string()),
+        heure_ouverture: z.array(z.number()),
+        heure_fermeture: z.array(z.number()),
         latitude: z.number(),
         longitude: z.number(),
         machines: z.array(z.object({ name: z.string(), nbr_machine: z.number() })),
@@ -106,8 +105,8 @@ export const hallsRouter = createTRPCRouter({
             capacite: z.number(),
             nbr_coach: z.number(),
             num_tel: z.string(),
-            heure_ouverture: z.array(z.string()),
-            heure_fermeture: z.array(z.string()),
+            heure_ouverture: z.array(z.number()),
+            heure_fermeture: z.array(z.number()),
             latitude: z.number(),
             longitude : z.number(),
             machines: z.array(z.object({ name: z.string(), nbr_machine: z.number() })),
@@ -137,6 +136,4 @@ export const hallsRouter = createTRPCRouter({
         });
         return salleModifiee;
     }),
-
-    
 });
