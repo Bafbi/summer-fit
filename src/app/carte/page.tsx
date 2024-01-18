@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import '~/styles/header.css';
 import Header from '../_components/organisms/Header';
 import Map from '../_components/organisms/Map';
+import Footer from '../_components/organisms/Footer';
 import { api } from '~/trpc/server';
 import { getServerSession } from 'next-auth';
 import { getServerAuthSession } from '~/server/auth';
+import '~/styles/carte.css'; // Import your CSS file
 
 // Fonction principale de la page d'accueil
 export default async function Home() {
@@ -15,19 +17,17 @@ export default async function Home() {
 
   return (
     <>
-      {/* Inclusion du composant Header */}
       <Header user ={session?.user}/>
-
-      {/* Contenu principal de la page */}
       <div className="h-screen">
-        {/* En-tête */}
-
-
-        {/* Contenu principal (la carte) */}
-        <main>
+        
+    <div className="image-container">
+      <div className="overlay-text">Nos salles de sport</div>
+    </div>
+        <main className=' m-20 mb-0'>
           <Map salles={salles} />
         </main>
-      </div>
+      </div>  
+      <Footer />
     </>
   );
 }

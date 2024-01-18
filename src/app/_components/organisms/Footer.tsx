@@ -8,7 +8,7 @@ const Footer = () => {
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
       {/* CopyRight */}
       <button id="qrCodeContainer">
-        <i id="qrCodeIcon" className=' bx qr-scan'></i>
+        <i id="qrCodeIcon" className='bx bx-qr-scan'></i>
         </button>
       <div className="copyright">
         <p>&#169; SUMMER FIT 2024, Tout droit réservés</p>

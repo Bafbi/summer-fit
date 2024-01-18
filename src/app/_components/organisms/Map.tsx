@@ -242,7 +242,7 @@ const handleSalleClick = (salle: Salle) => {
           title: salle.name,
           icon: {
             url: "/Localisation.png",
-            size: new google.maps.Size(40, 40),
+            size: new google.maps.Size(60, 40),
             scaledSize: new google.maps.Size(20, 20),
           },
         });
@@ -298,30 +298,31 @@ const handleSalleClick = (salle: Salle) => {
 
   
   const ReservationPopup = () => (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-5 rounded shadow-lg">
-        <h2>Réservation pour {selectedMarker?.name}</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
+      <div className="bg-white p-5 rounded shadow-lg font-black ">
+        <h2 className="text-[#7945f7] uppercase pb-2">Réservation pour {selectedMarker?.name}</h2>
         <CreateReservation salleId="65a7972b05b02b0409551ffb" />
 
-        <button onClick={() => setShowPopup(false)} className="mt-4 bg-red-500 hover:bg-red-700 text-black font-bold py-2 px-4 rounded">
+        <button onClick={() => setShowPopup(false)} 
+            className="btn bg-[#444] text-white py-2 px-5 mt-3 ml-20 rounded-md transition-transform duration-200 ease-in-out hover:bg-second-color active:scale-95"
+          >
           Fermer
         </button>
       </div>
     </div>
   );
   return (
-      <div className="flex flex-col px-4 md:flex-row">
-        <div className="relative max-h-screen w-full overflow-y-auto p-4 md:w-1/4">
-          <h2 className="mb-2 text-lg font-semibold">Nos salles : </h2>
+      <div className="flex flex-col px-4 md:flex-row ">
+        <div className="">
           <input
             type="text"
             placeholder="Recherchez une salle"
-            className="border-gray-300 block w-full rounded-md border p-2"
+            className="border-[#eeeff0] block w-full rounded-md border p-3"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             aria-label="Recherchez une salle"
           />
-          <div className={`absolute z-10 mt-1 bg-white w-full rounded-md shadow-lg ${searchTerm ? 'block' : 'hidden'}`}>
+          <div className={`absolute z-10 mt-1 bg-white w-[20%] rounded-md shadow-lg ${searchTerm ? 'block' : 'hidden'}`}>
             {searchTerm && filteredSalles.map((salle) => (
               <div
                 key={salle.id}
@@ -332,13 +333,13 @@ const handleSalleClick = (salle: Salle) => {
               </div>
             ))}
           </div>
-          <div className={`mt-${searchTerm ? filteredSalles.length * 8 : 0} p-2`}>
+          <div className={`mt-${searchTerm ? filteredSalles.length * 8 : 0}`}>
             {selectedMarker && (
       
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold">{selectedMarker.name}</h3>
-            <div className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <div className="mt-4 bg-[#eeeff0] rounded-lg p-7">
+            <h3 className="text-lg font-semibold uppercase text-[#7945f7] font-black pb-2">{selectedMarker.name}</h3>
+            <div className="flex items-center mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className=" mr-2 w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
 </svg>
@@ -347,26 +348,27 @@ const handleSalleClick = (salle: Salle) => {
     </div>
    
             <div className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="mr-2 w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
 </svg>
        <span> {selectedMarker.heure_ouverture[0]}-{selectedMarker.heure_fermeture[0]}</span>
     </div>
-    <div className="flex items-center">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+    <div className="flex items-center mt-2">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 mr-2">
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
       </svg>
       {selectedMarker.num_tel}
     </div>
-            <p className="text-gray-500 text-sm">
-              Capacité de : {selectedMarker.capacite}
+            <p className="text-[#444] text-sm mt-3 mb-1">
+              Capacité : {selectedMarker.capacite}
             </p>
-            <p className="text-gray-500 text-sm">
-              {selectedMarker.nbr_coach} coach(s) disponible
+            <p className="text-[#444]  text-sm mb-4">
+              Coach(s) disponible : {selectedMarker.nbr_coach} 
             </p>
           <button
             onClick={handleReservationClick}
-            className="mt-4 py-2 px-4"
+            className="btn bg-[#7945f7] text-white py-2 px-5 rounded-md transition-transform duration-200 ease-in-out hover:bg-second-color active:scale-95"
+          
           >
             Réserver un créneau
           </button>
@@ -391,5 +393,5 @@ export default function Map(props : {salles: RouterOutputs["halls"]["getAll"]}) 
 
 const render = (status: Status): ReactElement => {
   if (status === Status.FAILURE) return <span>nul</span>;
-  return <span>load</span>;
+  return <span></span>;
 };
