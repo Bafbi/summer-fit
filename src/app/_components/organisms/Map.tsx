@@ -5,6 +5,7 @@ import { Salle } from "@prisma/client";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { env } from "~/env";
 import { RouterOutputs } from "~/trpc/shared";
+import { CreateReservation } from "../api/create-reservation";
 
 const customMapStyles: google.maps.MapTypeStyle[] = [
   // Insérez ici le tableau de styles que vous avez fourni
@@ -198,16 +199,11 @@ function MapComponent(props : {salles: RouterOutputs["halls"]["getAll"]}) {
   salle.name.toLowerCase().includes(searchTerm.toLowerCase())
 );  
 
-const [openingTime, setOpeningTime] = useState<number>();
-const [closingTime, setClosingTime] = useState<number>();
+
 const handleSalleClick = (salle: Salle) => {
   setSelectedMarker(salle);
   setSearchTerm(""); // Réinitialiser la barre de recherche
-  const openingTime = salle.heure_ouverture[0] ; // Utiliser une valeur par défaut si 'undefined' ou vide
-  const closingTime = salle.heure_fermeture[0]; // Utiliser une valeur par défaut si 'undefined' ou vide
-
-  setOpeningTime(openingTime);
-  setClosingTime(closingTime);
+  
 };
   const defaultLocation: google.maps.LatLngLiteral = {
     lat: 50.6333,
@@ -298,59 +294,14 @@ const handleSalleClick = (salle: Salle) => {
   const closePopup = () => {
     setShowPopup(false); // Cacher le popup
   };
-  const [reservationDate, setReservationDate] = useState(new Date());
-  const [reservationTime, setReservationTime] = useState("");
-  const [duration, setDuration] = useState("");
+  
 
-  useEffect(() => {
-    console.log(reservationTime);
-    
-    setIsGood((+reservationTime > (openingTime ?? 0)) && (+reservationTime < (closingTime ?? 24)))
-  }, [reservationTime])
-
+  
   const ReservationPopup = () => (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-5 rounded shadow-lg">
         <h2>Réservation pour {selectedMarker?.name}</h2>
-        <form>
-        <div className="mb-3">
-            <label htmlFor="reservation-date" className="block mb-1">Date de réservation:</label>
-            <input 
-              type="date" 
-              id="reservation-date"
-              value={reservationDate.toISOString().split('T')[0]} 
-              onChange={(e) => setReservationDate(new Date(e.target.value))}
-            />
-          </div>
-      
-
-      <div className="mb-3">
-        <label htmlFor="reservation-time" className="block mb-1">Heure de réservation:</label>
-        <input 
-          type="time" 
-          id="reservation-time"
-          value={reservationTime} 
-          onChange={(e) => setReservationTime(e.target.value)}
-        />
-        <span>{isGood ? "correct" : "pas correct"}</span>
-        <span>{reservationTime}</span>
-      </div>
-
-          <div className="mb-3">
-            <label htmlFor="duration" className="block mb-1">Durée (en heures):</label>
-            <input 
-              type="text" 
-              id="duration"
-              placeholder="Durée" 
-              value={duration} 
-              onChange={(e) => setDuration(e.target.value)}
-            />
-          </div>
-
-          <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
-            Confirmer la réservation
-          </button>
-        </form>
+        <CreateReservation salleId="65a7972b05b02b0409551ffb" />
 
         <button onClick={() => setShowPopup(false)} className="mt-4 bg-red-500 hover:bg-red-700 text-black font-bold py-2 px-4 rounded">
           Fermer
@@ -399,7 +350,7 @@ const handleSalleClick = (salle: Salle) => {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
 </svg>
-        {selectedMarker.heure_ouverture}-{selectedMarker.heure_fermeture}
+       <span> {selectedMarker.heure_ouverture[0]}-{selectedMarker.heure_fermeture[0]}</span>
     </div>
     <div className="flex items-center">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
@@ -415,7 +366,7 @@ const handleSalleClick = (salle: Salle) => {
             </p>
           <button
             onClick={handleReservationClick}
-            className="mt-4 bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded"
+            className="mt-4 py-2 px-4"
           >
             Réserver un créneau
           </button>

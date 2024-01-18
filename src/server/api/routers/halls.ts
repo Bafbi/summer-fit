@@ -1,4 +1,3 @@
-import { error } from "console";
 import { z } from "zod";
 
 import {
@@ -137,6 +136,4 @@ export const hallsRouter = createTRPCRouter({
         });
         return salleModifiee;
     }),
-
-    
 });

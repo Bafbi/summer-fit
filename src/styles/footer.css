@@ -1,0 +1,20 @@
+/* CopyRight */
+.copyright {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.social a {
+    color: #444;
+    padding: 10px;
+    font-size: 21px;
+}
+.social i {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+.social i:hover {
+    color: #474fa0;
+    transform: translateY(-3px);
+}
