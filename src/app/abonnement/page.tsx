@@ -20,13 +20,13 @@ const App = async () => {
     <>
       <Header></Header>
 
-<main className="">
+<main className="px-4">
   
 
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h1 className="mb-6 pt-4 text-3xl font-semibold">
-            Nos différents abonnements :
+          <h1 className="text-[#444] mb-6 pt-4 text-3xl font-semibold underline">
+            Nos différents abonnements 
           </h1>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -62,22 +62,22 @@ const App = async () => {
               </ul>
               {userAbonnement === "ARGENT" ? (
                 <div className="text-center">
-                  <button className="bg-[#ad57f9] text-white px-8 py-2 rounded-lg transition-transform transform hover:bg-[#7945f7] active:scale-95"
+                  <button className="bg-[#ad57f9] text-white px-8 my-4 py-2 rounded-lg transition-transform transform  active:scale-95"
                   >
                     Abonnement actuel
                   </button>
                   <br />
-                  <span className="text[#ad57f9]-500 mt-1">
+                  <span className="text-[#444]-500 mt-1">
                    20€/mois
                   </span>
                 </div>
               ) : (
                 <div className="text-center">
-                  <AbonneBouton plan="ARGENT">
+                  <AbonneBouton plan="ARGENT" >
                     Souscrire
                   </AbonneBouton>
                   <br />
-                  <span className="text-[#ad57f9]-500 mt-1">
+                  <span className="text-[#444]-500 mt-1">
                    20€/mois
                   </span>
                 </div>
@@ -116,11 +116,11 @@ const App = async () => {
               </ul>
               {userAbonnement === "OR" ? (
                 <div className="text-center">
-                  <button className="bg-[#ad57f9] text-white px-8 py-2 rounded-lg transition-transform transform hover:bg-[#7945f7] active:scale-95">
+                  <button className="bg-[#ad57f9] text-white px-8 my-4 py-2 rounded-lg transition-transform transform  active:scale-95">
                     Abonnement actuel
                   </button>
                   <br />
-                  <span className="text-[#ad57f9]-500 mt-1">
+                  <span className="text-[#444]-500 mt-1">
                    35€/mois
                   </span>
                 </div>
@@ -130,7 +130,7 @@ const App = async () => {
                     Souscrire
                   </AbonneBouton>
                   <br />
-                  <span className="text-blue-500 mt-1">
+                  <span className="text-[#444]-500 mt-1">
                    35€/mois
                   </span>
                 </div>
@@ -169,11 +169,11 @@ const App = async () => {
               </ul>
               {userAbonnement === "DIAMANT" ? (
                 <div className="text-center">
-                  <button className="bg-[#ad57f9] text-white px-8 py-2 rounded-lg transition-transform transform hover:bg-[#7945f7] active:scale-95">
+                  <button className="bg-[#ad57f9] text-white px-8 py-2 my-4 rounded-lg transition-transform transform active:scale-95">
                     Abonnement actuel
                   </button>
                   <br />
-                  <span className="text-blue-500 mt-1">
+                  <span className="text-[#444]-500 mt-1">
                    50€/mois
                   </span>
                 </div>
@@ -183,7 +183,7 @@ const App = async () => {
                     Souscrire
                   </AbonneBouton>
                   <br />
-                  <span className="text-blue-500 mt-1">
+                  <span className="text-[#444]-500 mt-1">
                    50€/mois
                   </span>
                 </div>
