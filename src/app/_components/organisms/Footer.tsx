@@ -5,8 +5,11 @@ import '~/styles/footer.css';
 const Footer = () => {
   return (
     <>
-
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
       {/* CopyRight */}
+      <button id="qrCodeContainer">
+        <i id="qrCodeIcon" className=' bx qr-scan'></i>
+        </button>
       <div className="copyright">
         <p>&#169; SUMMER FIT 2024, Tout droit réservés</p>
         <div className="social">

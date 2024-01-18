@@ -1,91 +1,60 @@
 import Footer from "../_components/organisms/Footer";
 import Header from "../_components/organisms/Header";
 import CardProject from "../_components/molecules/CardProject";
-import Fond from "~/../public/assets/images/fond.png"
-import Adidas from "~/../public/assets/images/Adidass.png"
+import Salle from "~/../public/assets/images/Salle.jpg";
 import React from 'react';
 import '~/styles/accueil.css'; // Import your CSS file
 
 const App = () => {
-    
-    const projects = [
-        {
-          projectId: 1,
-          startup: 'Unitevent',
-          description: 'La soirée en un clic !',
-          expertise: 'Application sur-mesure',
-          image: Fond,
-          logo: Adidas,
-          link: '/ok',
-        },
-        {
-          projectId: 2,
-          startup: 'Unitevent',
-          description: 'La soirée en un clic !',
-          expertise: 'Application sur-mesure',
-          image: Fond,
-          logo: Adidas,
-          link: '#',
-        },
-        {
-          projectId: 3,
-          startup: 'Unitevent',
-          description: 'La soirée en un clic !',
-          expertise: 'Application sur-mesure',
-          image: Fond,
-          logo: Adidas,
-          link: '#',
-        },
-        {
-          projectId: 4,
-          startup: 'Unitevent',
-          description: 'La soirée en un clic !',
-          expertise: 'Application sur-mesure',
-          image: Fond,
-          logo: Adidas,
-          link: '#',
-        },
-        {
-          projectId: 5,
-          startup: 'Unite',
-          description: 'La soirée en un clic !',
-          expertise: 'Application sur-mesure',
-          image: Fond,
-          logo: Adidas,
-          link: '#',
-        }, 
-        {
-          projectId: 6,
-          startup: 'Unitevent',
-          description: 'La soirée en un clic !',
-          expertise: 'Application sur-mesure',
-          image: Fond,
-          logo: Adidas,
-          link: '#',
-        },
-      ];
+  const projects = [
+    {
+      projectId: 1,
+      startup: 'National 2',
+      description: '2 rue National, Lille',
+      ouverture : ' 8h - 18h',
+      image: Salle,
+      link: '/ok',
+    },
+    {
+      projectId: 2,
+      startup: 'National 2',
+      description: '2 rue National, Lille',
+      ouverture : ' 8h - 18h',
+      image: Salle,
+      link: '/ok',
+    }
+  ];
+
   return (
     <>
-    <Header></Header>
-    <div className="max-w-5xl mx-auto px-16 max-md:px-6">
-        <div className="grid grid-cols-2 gap-x-10 gap-y-10 max-md:gap-x-7 max-md:gap-y-5 max-md:grid-cols-1">
-          {projects.map((project) => (
-            <CardProject
-              key={project.projectId}
-              startup={project.startup}
-              description={project.description}
-              expertise={project.expertise}
-              image={project.image}
-              logo={project.logo}
-              link={project.link}
-            />
-          ))}
+      <Header />
+      <div className="max-w-5xl mx-auto px-16 max-md:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 max-md:gap-x-7 max-md:gap-y-5">
+          {/* Right Column - List of Projects */}
+          <div className="grid grid-cols-1 gap-y-10 max-md:gap-y-5">
+            {projects.map((project) => (
+              <CardProject
+                key={project.projectId}
+                startup={project.startup}
+                description={project.description}
+                ouverture={project.ouverture}
+                image={project.image}
+                link={project.link}
+              />
+            ))}
+          </div>
+
+          {/* Left Column - Google Map */}
+          <div>
+            <span>rdcftgvbjhnkdxfcgvbjhnk,esrxdcftvgybuhjnikdrtfvygbuhjnesrdtfvgybuhesrdtfvgybuhzsedrtfgvybuhnesrdtfvgybuhjn r(ftygedrf tbgyuhedtrfvbgyuhn'ed(rftbgyuhnjiedrftbgyuhnji</span>
+          </div>
         </div>
       </div>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 };
 
 export default App;
+
 
