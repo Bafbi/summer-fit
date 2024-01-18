@@ -70,7 +70,7 @@ export const authOptions: NextAuthOptions = {
         return "/register";
       }
 
-      if (userExists.)
+      // if (userExists.)
     },
   },
   adapter: PrismaAdapter(db),
