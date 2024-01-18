@@ -19,12 +19,12 @@
       machines: [],
     });
   
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
     };
   
-    const handleAddMachine = (e) => {
+    const handleAddMachine = (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
       const newMachine = { 
         name: formData.machineName, 
@@ -45,7 +45,10 @@
     };
   
     return (
+      <div className="relative">
+      {/* Bouton de retour - choisir entre l'option Link ou button */}
       <form className="flex flex-col gap-3 max-w-md mx-auto p-6 rounded-md shadow-md bg-white" onSubmit={handleSubmit}>
+      <Link href="../" className="text-sm text-blue-600 hover:text-blue-800 mr-3"> Retour </Link>
         <h2 className="text-center text-2xl font-semibold mb-5">Créer votre Salle</h2>
         <input className="p-2 border border-gray-300 rounded" type="text" name="roomName" placeholder="Nom de la Salle" onChange={handleChange} />
         <input className="p-2 border border-gray-300 rounded" type="text" name="address" placeholder="Adresse" onChange={handleChange} />
@@ -94,6 +97,8 @@
         </table>
         <button className="px-4 py-2 mt-3 border border-black rounded-md bg-blue-500 text-black hover:bg-blue-600" type="submit">Envoyer</button>
       </form>
+    </div>
+
     );
   };
   
