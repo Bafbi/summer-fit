@@ -1,0 +1,175 @@
+/* Fonts */
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+/* Color */
+:root {
+    --main-color: #7945f7;
+    --second-color: #ad57f9;
+    --text-color: #444;
+    --gradient: linear-gradient(#7945f7, #ad57f9);
+}
+
+html::-webkit-scrollbar{
+    width: 0.5rem;
+}
+html::-webkit-scrollbar-track{
+    background: transparent;
+}
+html::-webkit-scrollbar-thumb{
+    background: var(--color-primary);
+    border-radius: 5rem;
+}
+/* Initialisation */
+* {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-padding-top: 2rem;
+    scroll-behavior: smooth;
+    list-style: none;
+    text-decoration: none;
+}
+section {
+    padding: 50px 100px;
+}
+
+/* Custom Scroll Bar */
+html::-webkit-scrollbar {
+    width: 0.5rem;
+}
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+html::-webkit-scrollbar-thumb {
+    background-color: var(--text-color);
+    border-radius: 5rem;
+}
+
+/* Header */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eeeff1;
+    padding: 15px 100px;
+}
+.logo img {
+    width: 100px;
+    margin-top: 7px;
+}
+
+/* NavBar */
+.navbar {
+    display: flex;
+}
+.navbar li {
+    position: relative;
+}
+.navbar a {
+    font-size: 1rem;
+    padding: 10px 20px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+.navbar a::after {
+    content: "";
+    width: 0;
+    height: 3px;
+    background: var(--main-color);
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    transition: 0.3s;
+}
+.navbar a:hover::after {
+    width: 100%;
+}
+#menu-icon{
+    font-size: 20px;
+    cursor: pointer;
+    z-index:10001;
+    display: none;
+}
+.header-btn a {
+    padding: 10px 20px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+.header-btn .sign-in {
+    background: var(--main-color);
+    color: #fff;
+    border-radius: 0.5rem;
+    transition: transform 0.2s ease-in-out;
+}
+.sign-up:hover{ 
+    color: var(--main-color);
+}
+.header-btn .sign-in:hover {
+    background: var(--second-color);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    header {
+        padding: 18px 40px;
+    }
+}
+@media (max-width: 881px) {
+    .home {
+        background-position: left;
+    }
+}
+@media (max-width: 1200px) {
+    header{
+        padding: 30px 40px;
+    }
+    .sign-up, .sign-in {
+        display: none;
+    }
+    .home {
+        grid-template-columns: 1fr;
+    }
+    #menu-icon{
+        display: initial;
+        right: 0;
+        margin-right: 40px;
+        position: absolute;
+        font-size: 2.5rem;
+    }
+    header .navbar{
+        position: absolute;
+        top: -500px;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        background: white;
+        box-shadow: 0 4px 4px rgb(0,0,0, 0.1);
+        transition: 0.2s ease;
+        text-align: left;
+    }
+    .navbar.active{
+        top: 100%;
+    }
+    .navbar a{
+        padding: 1rem;
+        border-left: 2px solid var(--main-color);
+        margin: 1 rem;
+        display: block;
+        font-size: 1.25rem;
+    }
+    .navbar a:hover{
+        color: white;
+        background: var(--main-color);
+        border: none;
+    }
+    navbar a::after{
+        display: none;
+    }
+}
