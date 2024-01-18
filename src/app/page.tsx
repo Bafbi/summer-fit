@@ -1,30 +1,45 @@
 import Footer from "./_components/organisms/Footer";
 import Header from "./_components/organisms/Header";
 import Image from "next/image";
-import React from 'react';
-import '~/styles/accueil.css'; 
+import React from "react";
+import { getServerAuthSession } from "~/server/auth";
+import "~/styles/accueil.css";
 
-const App = () => {
+export default async function App() {
+
+  const session = await getServerAuthSession();
+
   return (
     <>
-    <Header></Header>
-      <head>
-        <meta charSet="UTF-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
-        <link rel="shortcut icon" type="image/x-icon" href="/ScrapBienIci/front-end/image/Logo.png" />
-        <title>Site officiel Summer fit® - Salle de Sport</title>
-      </head>
       <body>
+        <Header user={session?.user}></Header>
+
         {/* Home */}
         <section className="home" id="home">
           <div className="text">
-            <h1>Trouvez votre <br /><span>Salle idéal</span></h1>
-            <p>Nous offrons une variété étendue de la plus haute qualité et créons <br/>un nouvel espace pour s'entraîner qui devient bien plus confortable</p>
+            <h1>
+              Trouvez votre <br />
+              <span>Salle idéal</span>
+            </h1>
+            <p>
+              Nous offrons une variété étendue de la plus haute qualité et
+              créons <br />
+              un nouvel espace pour s'entraîner qui devient bien plus
+              confortable
+            </p>
             <div className="app-stores">
-              <Image src="/assets/images/App Store.png" alt="Apple Store" width={200} height={20} />
-              <Image src="/assets/images/Google Play.png" alt="Google Play"  width={200} height={20} />
+              <Image
+                src="/assets/images/App Store.png"
+                alt="Apple Store"
+                width={200}
+                height={20}
+              />
+              <Image
+                src="/assets/images/Google Play.png"
+                alt="Google Play"
+                width={200}
+                height={20}
+              />
             </div>
           </div>
 
@@ -33,9 +48,19 @@ const App = () => {
             <form action="announcement.html">
               <div className="input-box">
                 <span>Support</span>
-                <input type="search" name="" id="" placeholder="Votre problème" />
+                <input
+                  type="search"
+                  name=""
+                  id=""
+                  placeholder="Votre problème"
+                />
               </div>
-              <input type="submit" name="Une Question ?" id="" className="btn" />
+              <input
+                type="submit"
+                name="Une Question ?"
+                id=""
+                className="btn"
+              />
               <a href="search.html">Contactez Nous</a>
             </form>
           </div>
@@ -51,22 +76,34 @@ const App = () => {
             <div className="box">
               <i className="bx bxs-shield-minus"></i>
               <h2>Vos entraînements en toute sérénité</h2>
-              <p>Profitez d'un accompagnement 24h/24 et 7j/7 grâce à notre engagement et à la carte fidélitée</p>
+              <p>
+                Profitez d'un accompagnement 24h/24 et 7j/7 grâce à notre
+                engagement et à la carte fidélitée
+              </p>
             </div>
             <div className="box">
               <i className="bx bxs-shopping-bag"></i>
               <h2>Entraînez-vous en toute confiance</h2>
-              <p>Vivez des moments inoubliables lors de votre séance d'entraînement dans votre salle préférée du moment</p>
+              <p>
+                Vivez des moments inoubliables lors de votre séance
+                d'entraînement dans votre salle préférée du moment
+              </p>
             </div>
             <div className="box">
               <i className="bx bxs-coffee"></i>
               <h2>Toute l'énergie d'une salle de sport</h2>
-              <p>Immergez-vous dans un espace équipé d'installations de premier ordre et d'une énergie vibrante</p>
+              <p>
+                Immergez-vous dans un espace équipé d'installations de premier
+                ordre et d'une énergie vibrante
+              </p>
             </div>
             <div className="box">
               <i className="bx bxs-credit-card-front"></i>
               <h2>Plus qu'une simple séance</h2>
-              <p>Découvrez plus qu'un exercice - une communauté, un soutien et les équipements dont vous avez besoin</p>
+              <p>
+                Découvrez plus qu'un exercice - une communauté, un soutien et
+                les équipements dont vous avez besoin
+              </p>
             </div>
           </div>
         </section>
@@ -79,14 +116,32 @@ const App = () => {
           </div>
           <div className="about-container">
             <div className="about-img">
-              <Image src="/assets/images/about.png" alt="mockup" width={1200} height={1200} />
+              <Image
+                src="/assets/images/about.png"
+                alt="mockup"
+                width={1200}
+                height={1200}
+              />
             </div>
             <div className="about-text">
               <span>Offre Exceptionnel</span>
-              <p>Plongez dans une aventure fitness inégalée avec notre offre exceptionnelle qui repousse les limites de l'extraordinaire. En tant que membre de notre salle de sport, vous bénéficierez d'un accès exclusif à des séances d'entraînement innovantes</p>
+              <p>
+                Plongez dans une aventure fitness inégalée avec notre offre
+                exceptionnelle qui repousse les limites de l'extraordinaire. En
+                tant que membre de notre salle de sport, vous bénéficierez d'un
+                accès exclusif à des séances d'entraînement innovantes
+              </p>
               <span>Diversité des machines</span>
-              <p>Explorez un monde de possibilités avec notre collection diversifiée de machines de pointe, conçues pour répondre à tous les besoins de votre programme d'entraînement. Que vous souhaitiez renforcer vos muscles, améliorer votre endurance ou simplement vous détendre.</p>
-              <a href="" className="btn">Lire Plus</a>
+              <p>
+                Explorez un monde de possibilités avec notre collection
+                diversifiée de machines de pointe, conçues pour répondre à tous
+                les besoins de votre programme d'entraînement. Que vous
+                souhaitiez renforcer vos muscles, améliorer votre endurance ou
+                simplement vous détendre.
+              </p>
+              <a href="" className="btn">
+                Lire Plus
+              </a>
             </div>
           </div>
         </section>
@@ -100,7 +155,12 @@ const App = () => {
           <div className="reviews-container">
             <div className="box">
               <div className="rev-img">
-                <Image src="/assets/images/Client1.jpg" alt="Client1" width={50} height={50} />
+                <Image
+                  src="/assets/images/Client1.jpg"
+                  alt="Client1"
+                  width={50}
+                  height={50}
+                />
               </div>
               <h2>Hervé.M</h2>
               <div className="stars">
@@ -110,11 +170,23 @@ const App = () => {
                 <i className="bx bxs-star"></i>
                 <i className="bx bxs-star"></i>
               </div>
-              <p>En tant que débutante, j'ai trouvé Summer Fit incroyablement accueillante. Le personnel amical et les membres encourageants ont créé une communauté positive. Les programmes d'entraînement personnalisés m'ont permis de progresser à mon rythme. C'est bien plus qu'une simple salle de sport, c'est un lieu où l'on se sent soutenu dans son parcours de bien-être.</p>
+              <p>
+                En tant que débutante, j'ai trouvé Summer Fit incroyablement
+                accueillante. Le personnel amical et les membres encourageants
+                ont créé une communauté positive. Les programmes d'entraînement
+                personnalisés m'ont permis de progresser à mon rythme. C'est
+                bien plus qu'une simple salle de sport, c'est un lieu où l'on se
+                sent soutenu dans son parcours de bien-être.
+              </p>
             </div>
             <div className="box">
               <div className="rev-img">
-              <Image src="/assets/images/Client2.jpg" alt="Client2" width={50} height={50} />
+                <Image
+                  src="/assets/images/Client2.jpg"
+                  alt="Client2"
+                  width={50}
+                  height={50}
+                />
               </div>
               <h2>Juliette.L</h2>
               <div className="stars">
@@ -124,11 +196,24 @@ const App = () => {
                 <i className="bx bxs-star"></i>
                 <i className="bx bxs-star-half"></i>
               </div>
-              <p>Summer Fit a définitivement dépassé mes attentes en matière d'installations et de services. Les divers cours proposés, du yoga à l'entraînement en groupe, m'ont maintenu motivé. Les espaces de détente et la propreté impeccable ajoutent à l'expérience globale. Je recommande vivement cette salle de sport à quiconque recherche un environnement favorable à la remise en forme.</p>
+              <p>
+                Summer Fit a définitivement dépassé mes attentes en matière
+                d'installations et de services. Les divers cours proposés, du
+                yoga à l'entraînement en groupe, m'ont maintenu motivé. Les
+                espaces de détente et la propreté impeccable ajoutent à
+                l'expérience globale. Je recommande vivement cette salle de
+                sport à quiconque recherche un environnement favorable à la
+                remise en forme.
+              </p>
             </div>
             <div className="box">
               <div className="rev-img">
-              <Image src="/assets/images/Client3.jpg" alt="Client3" width={50} height={50} />
+                <Image
+                  src="/assets/images/Client3.jpg"
+                  alt="Client3"
+                  width={50}
+                  height={50}
+                />
               </div>
               <h2>Claire.T</h2>
               <div className="stars">
@@ -138,26 +223,33 @@ const App = () => {
                 <i className="bx bxs-star"></i>
                 <i className="bx bxs-star-half"></i>
               </div>
-              <p>J'ai été agréablement surprise par l'atmosphère énergique et motivante à Summer Fit. L'équipement de pointe et les instructeurs compétents m'ont permis de relever mes défis fitness avec confiance. L'ambiance décontractée mais professionnelle fait de cette salle de sport un endroit idéal pour tous les niveaux de condition physique.</p>
+              <p>
+                J'ai été agréablement surprise par l'atmosphère énergique et
+                motivante à Summer Fit. L'équipement de pointe et les
+                instructeurs compétents m'ont permis de relever mes défis
+                fitness avec confiance. L'ambiance décontractée mais
+                professionnelle fait de cette salle de sport un endroit idéal
+                pour tous les niveaux de condition physique.
+              </p>
             </div>
           </div>
-        </div>    
-      <section className="newsletter">
-        <h2>S'abonner à Newsletter</h2>
-        <p>Pour plus d'informations sur notre entreprise <br /> ou s'il y en a
-          autres questions, veuillez nous contacter
-        </p>
-        <div className="box">
-          <input type="text" placeholder="Entrer votre email" />
-          <a href="#" className="btn">
-            Envoyer
-          </a>
         </div>
-      </section>
+        <section className="newsletter">
+          <h2>S'abonner à Newsletter</h2>
+          <p>
+            Pour plus d'informations sur notre entreprise <br /> ou s'il y en a
+            autres questions, veuillez nous contacter
+          </p>
+          <div className="box">
+            <input type="text" placeholder="Entrer votre email" />
+            <a href="#" className="btn">
+              Envoyer
+            </a>
+          </div>
+        </section>
       </body>
       <Footer></Footer>
     </>
   );
 };
 
-export default App;
