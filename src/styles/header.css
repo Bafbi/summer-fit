@@ -101,7 +101,7 @@ header {
     color: var(--text-color);
     font-weight: 500;
 }
-.header-btn .sign-in {
+.header-btn.sign-up {
     background: var(--main-color);
     color: #fff;
     border-radius: 0.5rem;
@@ -110,7 +110,7 @@ header {
 .sign-up:hover{ 
     color: var(--main-color);
 }
-.header-btn .sign-in:hover {
+.header-btn.sign-up:hover {
     background: var(--second-color);
 }
 

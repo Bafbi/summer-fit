@@ -18,7 +18,7 @@ const App = async () => {
 
   return (
     <>
-      <Header></Header>
+      <Header user={session?.user} />
 
 <main className="px-4">
   
