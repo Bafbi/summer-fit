@@ -37,6 +37,6 @@
     "**/*.cjs",
     "**/*.js",
     ".next/types/**/*.ts"
-  ],
+, "src/app/page copy.tsx.all"  ],
   "exclude": ["node_modules"]
 }
