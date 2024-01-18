@@ -21,7 +21,7 @@ const Header = () => {
           <li><a href="/carte">Clubs</a></li>
           <li><a href="/abonnement">Abonnements</a></li>
           <li><a href="#about">Suivi Sportif </a></li>
-          <li><a href="#about">Pourquoi Summer Fit </a></li>
+          <li><a href="/reservation ">Mes réservations </a></li>
         </ul>
         <div className="header-btn">
           <a href="/api/auth/signin" className="sign-up ">Se Connecter</a>
