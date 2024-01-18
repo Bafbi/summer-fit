@@ -23,8 +23,9 @@ export function CreateReservation(props: { salleId: string }) {
         e.preventDefault();
         createReservation.mutate({ salleId, datetime });
       }}
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-2 bg-secondary p-4 rounded-xl"
     >
+        <label className="font-semibold">Date et heure</label>
       <input
         type="datetime-local"
         value={datetime.toISOString().slice(0, 16)}

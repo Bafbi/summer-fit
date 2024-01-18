@@ -6,6 +6,7 @@ import CardProject from "~/app/_components/molecules/CardProject";
 import Adidas from "../../public/assets/images/Adidass.png";
 import Fond from "../../public/assets/images/Fond.png";
 import { CreateReservation } from "~/app/_components/api/create-reservation";
+import { ValidateReservation } from "./_components/api/validate-reservation";
 
 export default async function Home() {
   const projects = [
@@ -131,6 +132,8 @@ export default async function Home() {
         </div>
 
         <CreateReservation salleId="65a7972b05b02b0409551ffb" />
+
+        <ValidateReservation />
 
       </div>
 

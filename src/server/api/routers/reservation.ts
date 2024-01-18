@@ -51,4 +51,22 @@ export const reservationRouter = createTRPCRouter({
       },
     });
   }),
+
+  validateOne: protectedProcedure.input(z.object({ reservationId: z.string().min(12), userId: z.string().min(12) })).mutation(async ({ ctx, input }) => {
+    // On vérifie que l'utilisateur est bien un admin
+    if (ctx.session.user.role !== "ADMIN" && ctx.session.user.role !== "COACH") {
+      throw new Error(`Vous n'avez pas les droits pour effectuer cette action.`);
+    }
+
+    // On vérifie que la réservation existe
+    const existingReservation = await ctx.db.reservation.findUnique({
+      where: { id: input.reservationId, userId: input.userId },
+    });
+
+    if (!existingReservation) {
+      throw new Error(`La réservation avec l'identifiant ${input.reservationId} n'existe pas.`);
+    }
+
+    return true;
+  })
 });
