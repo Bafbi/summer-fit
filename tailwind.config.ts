@@ -23,4 +23,5 @@ module.exports = withMaterialColors(config, {
   // primary is required
   // secondary and/or tertiary are optional, if not set they will be derived from the primary color
   primary: '#fceba3',
-  });
+  
+  }, {extend: true});
