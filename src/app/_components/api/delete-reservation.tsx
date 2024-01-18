@@ -1,11 +1,17 @@
 "use client";
 
 import { redirect, useRouter } from "next/navigation";
-import { useState } from "react";
+import { Children, useState } from "react";
 
 import { api } from "~/trpc/react";
 
-export function DeleteReservation(props: { reservationId: string}) {
+export function DeleteReservation({
+    children,
+    ...props
+  }: {
+    children: React.ReactNode;
+    reservationId: string;
+  }) {
 
 
   const deleteReservation = api.reservation.deleteOne.useMutation({
@@ -15,8 +21,8 @@ export function DeleteReservation(props: { reservationId: string}) {
   });
 
   return (
-    <button onClick={() => deleteReservation.mutate({ id: props.reservationId  })} className="rounded-full bg-error px-10 py-3 font-semibold transition hover:bg-primary">
-        Supprimer la réservation
+    <button onClick={() => deleteReservation.mutate({ id: props.reservationId  })} className="rounded-full bg-surface-variant px-10 py-3 font-semibold transition hover:bg-secondary">
+        {children}
     </button>
   );
 }

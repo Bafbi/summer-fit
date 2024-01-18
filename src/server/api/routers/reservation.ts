@@ -68,5 +68,22 @@ export const reservationRouter = createTRPCRouter({
     }
 
     return true;
-  })
+  }),
+
+  getOne: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+    return ctx.db.reservation.findUnique({
+      where: { id: input.id, userId: ctx.session.user.id },
+      select: {
+        id: true,
+        date: true,
+        salle: {
+          select: { name: true, adresse: true, heure_ouverture: true, heure_fermeture: true },
+        },
+        user: {
+          select: { id: true, email: true, name: true, role: true },
+        },
+      },
+    });
+  }),
+
 });
