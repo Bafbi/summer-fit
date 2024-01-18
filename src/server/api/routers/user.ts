@@ -1,3 +1,5 @@
+import { input } from "@nextui-org/react";
+import { $Enums } from "@prisma/client";
 import { z } from "zod";
 
 import {
@@ -9,15 +11,20 @@ import {
 export const userRouter = createTRPCRouter({
 
   //On récupère le rôle du user actuellement le role du user connecté
-  getRole: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.db.user.findUnique({
-      select: {
-        role: true,
-      },
+  setRole: protectedProcedure.input(z.object({ userId: z.string(), role: z.enum(["USER", "COACH", "ADMIN"])})).mutation(async ({ ctx }) => {
+
+    if (ctx.session.user.role !== "ADMIN") {
+      throw new Error(`Vous n'avez pas les droits pour effectuer cette action.`);
+    }
+
+    return ctx.db.user.update({
       where: {
-        id: ctx.session.user.id,
+        id: input.userId,
       },
-    });
+      data: {
+        role: $Enums.Role[input.role],
+      },
+    })
   }),
 
 
