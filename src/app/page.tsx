@@ -1,5 +1,6 @@
 import Footer from "./_components/organisms/Footer";
 import Header from "./_components/organisms/Header";
+import Image from "next/image";
 import React from 'react';
 import '~/styles/accueil.css'; 
 
@@ -22,8 +23,8 @@ const App = () => {
             <h1>Trouvez votre <br /><span>Salle idéal</span></h1>
             <p>Nous offrons une variété étendue de la plus haute qualité et créons <br/>un nouvel espace pour s'entraîner qui devient bien plus confortable</p>
             <div className="app-stores">
-              <img src="assets/images/App Store.png" alt="Apple Store" />
-              <img src="assets/images/Google Play.png" alt="Google Play" />
+              <Image src="/assets/images/App Store.png" alt="Apple Store" width={200} height={20} />
+              <Image src="/assets/images/Google Play.png" alt="Google Play"  width={200} height={20} />
             </div>
           </div>
 
@@ -78,7 +79,7 @@ const App = () => {
           </div>
           <div className="about-container">
             <div className="about-img">
-              <img src="assets/images/about.png" alt="mockup" />
+              <Image src="/assets/images/about.png" alt="mockup" width={1200} height={1200} />
             </div>
             <div className="about-text">
               <span>Offre Exceptionnel</span>
@@ -99,7 +100,7 @@ const App = () => {
           <div className="reviews-container">
             <div className="box">
               <div className="rev-img">
-                <img src="assets/images/Client1.jpg" alt="Client1" />
+                <Image src="/assets/images/Client1.jpg" alt="Client1" width={50} height={50} />
               </div>
               <h2>Hervé.M</h2>
               <div className="stars">
@@ -113,7 +114,7 @@ const App = () => {
             </div>
             <div className="box">
               <div className="rev-img">
-                <img src="assets/images/Client2.jpg" alt="Client2" />
+              <Image src="/assets/images/Client2.jpg" alt="Client2" width={50} height={50} />
               </div>
               <h2>Juliette.L</h2>
               <div className="stars">
@@ -127,7 +128,7 @@ const App = () => {
             </div>
             <div className="box">
               <div className="rev-img">
-                <img src="assets/images/Client3.jpg" alt="Client3" />
+              <Image src="/assets/images/Client3.jpg" alt="Client3" width={50} height={50} />
               </div>
               <h2>Claire.T</h2>
               <div className="stars">

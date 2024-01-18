@@ -3,7 +3,7 @@
     width: 100%;
     min-height: 100vh;
     position: relative;
-    background: url(~public/assets/images/fond.png);
+    background: url(/assets/images/fond.png);
     background-repeat: no-repeat;
     background-position: center right;
     background-size: cover;
