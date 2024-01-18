@@ -15,7 +15,7 @@ export const appRouter = createTRPCRouter({
   halls: hallsRouter,
   user: userRouter,
   reservation: reservationRouter,
-  subscription: subscriptionRouter,
+  abonnement: subscriptionRouter,
 });
 
 // export type definition of API
