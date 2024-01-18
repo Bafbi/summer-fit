@@ -16,8 +16,15 @@ export default function Page() {
   const [heureOuvertureMinutes, setHeureOuvertureMinutes] = useState("0");
   const [heureFermetureHeures, setHeureFermetureHeures] = useState("0");
   const [heureFermetureMinutes, setHeureFermetureMinutes] = useState("0");
+  const [nomMachine, setNomMachine] = useState("");
+  const [nombreMachine, setNombreMachine] = useState("1");
+  const [tableauData, setTableauData] = useState([
+    { nomMachine: "", nombreMachine: "" },
+    { nomMachine: "", nombreMachine: "" },
+    { nomMachine: "", nombreMachine: "" },
+  ]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const heureOuverture = `${heureOuvertureHeures}:${heureOuvertureMinutes}`;
@@ -33,6 +40,7 @@ export default function Page() {
       numTel,
       heureOuverture,
       heureFermeture,
+      tableauData,
     };
 
     // Exemple de requête POST
@@ -52,25 +60,19 @@ export default function Page() {
       });
   };
 
+  const handleAddMachine = () => {
+    const newMachine = { nomMachine, nombreMachine };
+    setTableauData([...tableauData, newMachine]);
+    setNomMachine("");
+    setNombreMachine("1");
+  };
+
   return (
     <div className="min-h-screen bg-background-100">
-      <header className="p-4 flex items-center bg-secondary-dark justify-between">
-        <div className="flex items-center">
-          <img
-            src="/assets/images/Logo.png"
-            alt="Logo"
-            className="w-10 h-10 mr-2"
-          />
-          <h1 className="text-2xl font-bold text-center">Bienvenue sur SummerFit</h1>
-        </div>
-        <Link href="/deconnexion" className="text-primary text-lg font-semibold hover:underline focus:outline-none focus:ring focus:ring-purple-300 px-4 py-2 rounded-md">
-          Déconnexion
-        </Link>
-      </header>
       <div className="flex mt-8 justify-center">
         <form className="w-full max-w-md" onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Nom de la salle :
             </label>
             <input
@@ -83,7 +85,7 @@ export default function Page() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Adresse :
             </label>
             <input
@@ -96,7 +98,7 @@ export default function Page() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Latitude :
             </label>
             <input
@@ -109,7 +111,7 @@ export default function Page() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Longitude :
             </label>
             <input
@@ -122,7 +124,7 @@ export default function Page() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Capacité :
             </label>
             <input
@@ -135,7 +137,7 @@ export default function Page() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Nombre de coach :
             </label>
             <select
@@ -151,7 +153,7 @@ export default function Page() {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Numéro de téléphone :
             </label>
             <input
@@ -164,7 +166,7 @@ export default function Page() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Heure d'ouverture :
             </label>
             <div className="flex">
@@ -194,7 +196,7 @@ export default function Page() {
             </div>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Heure de fermeture :
             </label>
             <div className="flex">
@@ -221,6 +223,61 @@ export default function Page() {
                   </option>
                 ))}
               </select>
+            </div>
+          </div>
+          <div className="mb-4">
+            <div className="flex">
+              <input
+                type="text"
+                className="w-full border rounded-md py-2 px-3 mr-2 focus:outline-none focus:border-primary"
+                placeholder="Nom Machine"
+                value={nomMachine}
+                onChange={(e) => setNomMachine(e.target.value)}
+              />
+              <select
+                className="border rounded-md py-2 px-3 mr-2 focus:outline-none focus:border-primary"
+                value={nombreMachine}
+                onChange={(e) => setNombreMachine(e.target.value)}
+              >
+                {[...Array(15).keys()].map((i) => (
+                  <option key={i} value={String(i + 1)}>
+                    {i + 1}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                className="bg-primary text-white font-bold py-2 px-4 rounded-md focus:outline-none hover:bg-primary-dark"
+                onClick={handleAddMachine}
+              >
+                Valider
+              </button>
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-white text-sm font-bold mb-2">
+              Tableau de 2 colonnes :
+            </label>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse border border-primary">
+                <thead>
+                  <tr className="bg-primary text-white">
+                    <th className="px-4 py-2">Nom Machine</th>
+                    <th className="px-4 py-2">Nombre Machine</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableauData.map((item, index) => (
+                    <tr
+                      key={index}
+                      className={index % 2 === 0 ? "bg-gray-100" : ""}
+                    >
+                      <td className="px-4 py-2">{item.nomMachine}</td>
+                      <td className="px-4 py-2">{item.nombreMachine}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
           <div className="text-center">

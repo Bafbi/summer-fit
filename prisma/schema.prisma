@@ -45,8 +45,6 @@ model Machine {
 model Salle {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     name      String
-    altitude  Int
-    longitude Int 
     capacite  Int
     nbr_coach Int
     num_tel   String
