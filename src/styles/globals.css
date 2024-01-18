@@ -3,9 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-  body {
-    @apply bg-background;
-  }
+  
  
 }
   
