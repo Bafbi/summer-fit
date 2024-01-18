@@ -1,158 +1,162 @@
-import Link from "next/link";
+import Footer from "./_components/organisms/Footer";
+import Header from "./_components/organisms/Header";
+import React from 'react';
+import '~/styles/accueil.css'; 
 
-import { getServerAuthSession } from "~/server/auth";
-import { api } from "~/trpc/server";
-import CardProject from "~/app/_components/molecules/CardProject";
-import Adidas from "../../public/assets/images/Adidass.png";
-import Fond from "../../public/assets/images/Fond.png";
-import { CreateReservation } from "~/app/_components/api/create-reservation";
-import { ValidateReservation } from "./_components/api/validate-reservation";
-
-export default async function Home() {
-  const projects = [
-    {
-      projectId: 1,
-      startup: "Unitevent",
-      description: "La soirée en un clic !",
-      expertise: "Application sur-mesure",
-      image: Fond,
-      logo: Adidas,
-      link: "/ok",
-    },
-    {
-      projectId: 2,
-      startup: "Unitevent",
-      description: "La soirée en un clic !",
-      expertise: "Application sur-mesure",
-      image: Fond,
-      logo: Adidas,
-      link: "#",
-    },
-    {
-      projectId: 3,
-      startup: "Unitevent",
-      description: "La soirée en un clic !",
-      expertise: "Application sur-mesure",
-      image: Fond,
-      logo: Adidas,
-      link: "#",
-    },
-    {
-      projectId: 4,
-      startup: "Unitevent",
-      description: "La soirée en un clic !",
-      expertise: "Application sur-mesure",
-      image: Fond,
-      logo: Adidas,
-      link: "#",
-    },
-    {
-      projectId: 5,
-      startup: "Unite",
-      description: "La soirée en un clic !",
-      expertise: "Application sur-mesure",
-      image: Fond,
-      logo: Adidas,
-      link: "#",
-    },
-    {
-      projectId: 6,
-      startup: "Unitevent",
-      description: "La soirée en un clic !",
-      expertise: "Application sur-mesure",
-      image: Fond,
-      logo: Adidas,
-      link: "#",
-    },
-  ];
-
-  const hello = await api.post.hello.query({ text: "from tRPC" });
-  const session = await getServerAuthSession();
-
-  let userRole = null;
-  if (session) {
-    userRole = await api.user.getRole.query();
-  }
-
-
-
-
+const App = () => {
   return (
-    //? Liste des projets réalisés
-
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-          Create <span className="text-primary">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
+    <>
+    <Header></Header>
+      <head>
+        <meta charSet="UTF-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="/ScrapBienIci/front-end/image/Logo.png" />
+        <title>Site officiel Summer fit® - Salle de Sport</title>
+      </head>
+      <body>
+        {/* Home */}
+        <section className="home" id="home">
+          <div className="text">
+            <h1>Trouvez votre <br /><span>Salle idéal</span></h1>
+            <p>Nous offrons une variété étendue de la plus haute qualité et créons <br/>un nouvel espace pour s'entraîner qui devient bien plus confortable</p>
+            <div className="app-stores">
+              <img src="assets/images/App Store.png" alt="Apple Store" />
+              <img src="assets/images/Google Play.png" alt="Google Play" />
             </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
-        </div>
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello ? hello.greeting : "Loading tRPC query..."}
-          </p>
-
-          <div className="flex flex-col items-center justify-center gap-4">
-            <p className="text-center text-2xl text-white">
-              {session && (
-                <span>
-                  Logged in as {session.user?.name} : {userRole?.role}
-                </span>
-              )}
-            </p>
-            <Link
-              href={session ? "/api/auth/signout" : "/api/auth/signin"}
-              className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-            >
-              {session ? "Sign out" : "Sign in"}
-            </Link>
           </div>
+
+          {/* Forms */}
+          <div className="form-container">
+            <form action="announcement.html">
+              <div className="input-box">
+                <span>Support</span>
+                <input type="search" name="" id="" placeholder="Votre problème" />
+              </div>
+              <input type="submit" name="Une Question ?" id="" className="btn" />
+              <a href="search.html">Contactez Nous</a>
+            </form>
+          </div>
+        </section>
+
+        {/* Advantage */}
+        <section className="advantage" id="advantage">
+          <div className="heading">
+            <span>Notre avantage</span>
+            <h1>Notre service spécial</h1>
+          </div>
+          <div className="advantage-container">
+            <div className="box">
+              <i className="bx bxs-shield-minus"></i>
+              <h2>Vos entraînements en toute sérénité</h2>
+              <p>Profitez d'un accompagnement 24h/24 et 7j/7 grâce à notre engagement et à la carte fidélitée</p>
+            </div>
+            <div className="box">
+              <i className="bx bxs-shopping-bag"></i>
+              <h2>Entraînez-vous en toute confiance</h2>
+              <p>Vivez des moments inoubliables lors de votre séance d'entraînement dans votre salle préférée du moment</p>
+            </div>
+            <div className="box">
+              <i className="bx bxs-coffee"></i>
+              <h2>Toute l'énergie d'une salle de sport</h2>
+              <p>Immergez-vous dans un espace équipé d'installations de premier ordre et d'une énergie vibrante</p>
+            </div>
+            <div className="box">
+              <i className="bx bxs-credit-card-front"></i>
+              <h2>Plus qu'une simple séance</h2>
+              <p>Découvrez plus qu'un exercice - une communauté, un soutien et les équipements dont vous avez besoin</p>
+            </div>
+          </div>
+        </section>
+
+        {/* About Us */}
+        <section className="about" id="about">
+          <div className="heading">
+            <span>A Propos de Nous</span>
+            <h1>Nous sommes une salle de sport de confiance</h1>
+          </div>
+          <div className="about-container">
+            <div className="about-img">
+              <img src="assets/images/about.png" alt="mockup" />
+            </div>
+            <div className="about-text">
+              <span>Offre Exceptionnel</span>
+              <p>Plongez dans une aventure fitness inégalée avec notre offre exceptionnelle qui repousse les limites de l'extraordinaire. En tant que membre de notre salle de sport, vous bénéficierez d'un accès exclusif à des séances d'entraînement innovantes</p>
+              <span>Diversité des machines</span>
+              <p>Explorez un monde de possibilités avec notre collection diversifiée de machines de pointe, conçues pour répondre à tous les besoins de votre programme d'entraînement. Que vous souhaitiez renforcer vos muscles, améliorer votre endurance ou simplement vous détendre.</p>
+              <a href="" className="btn">Lire Plus</a>
+            </div>
+          </div>
+        </section>
+
+        {/* Reviews */}
+        <div className="reviews" id="reviews">
+          <div className="heading">
+            <span>Avis</span>
+            <h1>Que disent nos clients</h1>
+          </div>
+          <div className="reviews-container">
+            <div className="box">
+              <div className="rev-img">
+                <img src="assets/images/Client1.jpg" alt="Client1" />
+              </div>
+              <h2>Hervé.M</h2>
+              <div className="stars">
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+              </div>
+              <p>En tant que débutante, j'ai trouvé Summer Fit incroyablement accueillante. Le personnel amical et les membres encourageants ont créé une communauté positive. Les programmes d'entraînement personnalisés m'ont permis de progresser à mon rythme. C'est bien plus qu'une simple salle de sport, c'est un lieu où l'on se sent soutenu dans son parcours de bien-être.</p>
+            </div>
+            <div className="box">
+              <div className="rev-img">
+                <img src="assets/images/Client2.jpg" alt="Client2" />
+              </div>
+              <h2>Juliette.L</h2>
+              <div className="stars">
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star-half"></i>
+              </div>
+              <p>Summer Fit a définitivement dépassé mes attentes en matière d'installations et de services. Les divers cours proposés, du yoga à l'entraînement en groupe, m'ont maintenu motivé. Les espaces de détente et la propreté impeccable ajoutent à l'expérience globale. Je recommande vivement cette salle de sport à quiconque recherche un environnement favorable à la remise en forme.</p>
+            </div>
+            <div className="box">
+              <div className="rev-img">
+                <img src="assets/images/Client3.jpg" alt="Client3" />
+              </div>
+              <h2>Claire.T</h2>
+              <div className="stars">
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star"></i>
+                <i className="bx bxs-star-half"></i>
+              </div>
+              <p>J'ai été agréablement surprise par l'atmosphère énergique et motivante à Summer Fit. L'équipement de pointe et les instructeurs compétents m'ont permis de relever mes défis fitness avec confiance. L'ambiance décontractée mais professionnelle fait de cette salle de sport un endroit idéal pour tous les niveaux de condition physique.</p>
+            </div>
+          </div>
+        </div>    
+      <section className="newsletter">
+        <h2>S'abonner à Newsletter</h2>
+        <p>Pour plus d'informations sur notre entreprise <br /> ou s'il y en a
+          autres questions, veuillez nous contacter
+        </p>
+        <div className="box">
+          <input type="text" placeholder="Entrer votre email" />
+          <a href="#" className="btn">
+            Envoyer
+          </a>
         </div>
-
-        <CreateReservation salleId="65a7972b05b02b0409551ffb" />
-
-        <ValidateReservation />
-
-      </div>
-
-      <div className="mx-auto max-w-5xl px-16 max-md:px-6">
-        <div className="grid grid-cols-2 gap-x-10 gap-y-10 max-md:grid-cols-1 max-md:gap-x-7 max-md:gap-y-5">
-          {projects.map((project) => (
-            <CardProject
-              key={project.projectId}
-              startup={project.startup}
-              description={project.description}
-              expertise={project.expertise}
-              image={project.image}
-              logo={project.logo}
-              link={project.link}
-            />
-          ))}
-        </div>
-      </div>
-    </main>
+      </section>
+      </body>
+      <Footer></Footer>
+    </>
   );
-}
+};
 
+export default App;
