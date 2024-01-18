@@ -21,46 +21,47 @@ model Post {
     updatedAt DateTime @updatedAt
 
     createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String  @db.ObjectId
+    createdById String @db.ObjectId
 
     @@index([name])
 }
 
 model Images {
-   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-   name      String 
-   url       String
-   salleId     String   @db.ObjectId
-   salle       Salle    @relation(fields: [salleId], references: [id]) 
+    id      String @id @default(auto()) @map("_id") @db.ObjectId
+    name    String
+    url     String
+    salleId String @db.ObjectId
+    salle   Salle  @relation(fields: [salleId], references: [id], onDelete: Cascade)
 }
 
 model Machine {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    name      String
-    nbr_machine   Int
-    salleId     String   @db.ObjectId
-    salle       Salle    @relation(fields: [salleId], references: [id])
+    id          String @id @default(auto()) @map("_id") @db.ObjectId
+    name        String
+    nbr_machine Int
+    salleId     String @db.ObjectId
+    salle       Salle  @relation(fields: [salleId], references: [id], onDelete: Cascade)
 }
 
 model Salle {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    name      String
-    capacite  Int
-    nbr_coach Int
-    num_tel   String
+    id              String        @id @default(auto()) @map("_id") @db.ObjectId
+    name            String
+    adresse         String
+    capacite        Int
+    nbr_coach       Int
+    num_tel         String
     heure_ouverture String[]
     heure_fermeture String[]
-    latitude Float
-    longitude Float
-    machine   Machine[]
-    images    Images[]
-    reservation Reservation[]
+    latitude        Float
+    longitude       Float
+    machine         Machine[]
+    images          Images[]
+    reservation     Reservation[]
 }
 
 // Necessary for Next auth
 model Account {
     id                String  @id @default(auto()) @map("_id") @db.ObjectId
-    userId            String   @db.ObjectId
+    userId            String  @db.ObjectId
     type              String
     provider          String
     providerAccountId String
@@ -77,18 +78,18 @@ model Account {
 }
 
 model Reservation {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    date      DateTime
-    salleId     String   @db.ObjectId
-    salle       Salle    @relation(fields: [salleId], references: [id])
-    userId       String   @db.ObjectId @unique
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    id      String   @id @default(auto()) @map("_id") @db.ObjectId
+    date    DateTime
+    salleId String   @db.ObjectId
+    salle   Salle    @relation(fields: [salleId], references: [id])
+    userId  String   @db.ObjectId
+    user    User     @relation(fields: [userId], references: [id])
 }
 
 model Session {
     id           String   @id @default(auto()) @map("_id") @db.ObjectId
     sessionToken String   @unique
-    userId       String   @db.ObjectId 
+    userId       String   @db.ObjectId
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -107,9 +108,9 @@ enum Abonnement {
 }
 
 model User {
-    id            String    @id @default(auto()) @map("_id") @db.ObjectId
+    id            String        @id @default(auto()) @map("_id") @db.ObjectId
     name          String?
-    email         String?   @unique
+    email         String?       @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
@@ -117,7 +118,7 @@ model User {
     role          Role?
     abonnement    Abonnement?
     posts         Post[]
-    reservations  Reservation?
+    reservations  Reservation[]
 }
 
 model VerificationToken {
