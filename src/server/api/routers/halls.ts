@@ -6,6 +6,14 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
+
+// Définir les personnes qui auront accès aux sites
+const role: { [key in 'CLIENT' | 'ADMINISTRATEUR' | 'COACH']: String } = {
+  CLIENT: 'CLIENT',
+  ADMINISTRATEUR: 'ADMIN',
+  COACH: 'COACH'
+};
+
 //Besoin de mettre à jour les publics/privates
 
 export const hallsRouter = createTRPCRouter({
@@ -32,25 +40,22 @@ export const hallsRouter = createTRPCRouter({
     deleteOneById : protectedProcedure
     .input(z.object({ salleId : z.string() }))
     .mutation(async ({ ctx, input }) => {
-        //On vérifie d'abord que la salle existe
-        const existingHalls = await ctx.db.salle.findUnique({
-            where: { id: input.salleId }
-        });
-
+      if(ctx.session.user.role === "ADMIN"){
+         //On vérifie d'abord que la salle existe
+         const existingHalls = await ctx.db.salle.findUnique({
+          where: { id: input.salleId }
+      });
         if(!existingHalls){
-            throw new Error(`La salle avec l'identifiant ${input.salleId} n'existe pas.`);
+          throw new Error(`La salle avec l'identifiant ${input.salleId} n'existe pas.`);
         }
-
-        //On peut maintenant la supprimer si elle existe 
-        const deletedSalle = await ctx.db.salle.delete({
-            where: { id: input.salleId }
-        });
-
-        return deletedSalle;
-    }),
-
-
-
+        
+      //On peut maintenant la supprimer si elle existe 
+      const deletedSalle = await ctx.db.salle.delete({
+          where: { id: input.salleId }
+      });
+      return deletedSalle;
+    };  
+  }),
 
     //Fonction permettant d'ajouter une nouvelle salle
     createOne : protectedProcedure
@@ -68,6 +73,7 @@ export const hallsRouter = createTRPCRouter({
         images: z.array(z.object({ name: z.string(), url: z.string() })) 
     }))
     .mutation(async ({ ctx, input }) => {
+      if(ctx.session.user.role === "ADMIN"){
         // Créez la salle
         const nouvelleSalle = await ctx.db.salle.create({
           data: {
@@ -87,9 +93,9 @@ export const hallsRouter = createTRPCRouter({
               create: input.images
             }
           },
-        });
-    
-        return nouvelleSalle;
+      });
+      return nouvelleSalle;
+        };
     }),     
 
 
@@ -114,26 +120,28 @@ export const hallsRouter = createTRPCRouter({
         })
     )
     .mutation(async ({ ctx, input }) => {
+      if(ctx.session.user.role === "ADMIN"){
         const salleModifiee = await ctx.db.salle.update({
-        where: { id: input.salleId },
-        data: {
-            name: input.name,
-            adresse: input.adresse,
-            capacite: input.capacite,
-            nbr_coach: input.nbr_coach,
-            num_tel: input.num_tel,
-            heure_ouverture: input.heure_ouverture,
-            heure_fermeture: input.heure_fermeture,
-            latitude: input.latitude,
-            longitude: input.longitude,
-            machine: {
-              create: input.machines
-            },
-            images: {
-              create: input.images
-            }
-        },
+          where: { id: input.salleId },
+          data: {
+              name: input.name,
+              adresse: input.adresse,
+              capacite: input.capacite,
+              nbr_coach: input.nbr_coach,
+              num_tel: input.num_tel,
+              heure_ouverture: input.heure_ouverture,
+              heure_fermeture: input.heure_fermeture,
+              latitude: input.latitude,
+              longitude: input.longitude,
+              machine: {
+                create: input.machines
+              },
+              images: {
+                create: input.images
+              }
+          },
         });
-        return salleModifiee;
-    }),
-});
+          return salleModifiee;
+          };
+        }
+        )});

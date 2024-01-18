@@ -56,6 +56,7 @@ model Salle {
     machine         Machine[]
     images          Images[]
     reservation     Reservation[]
+    coach           Coach[]
 }
 
 // Necessary for Next auth
@@ -84,6 +85,8 @@ model Reservation {
     salle   Salle    @relation(fields: [salleId], references: [id])
     userId  String   @db.ObjectId
     user    User     @relation(fields: [userId], references: [id])
+    coachId String?  @db.ObjectId
+    coach   Coach?   @relation(fields: [coachId], references: [id])
 }
 
 model Session {
@@ -119,6 +122,8 @@ model User {
     abonnement    Abonnement?
     posts         Post[]
     reservations  Reservation[]
+    coachId       String?       @unique @db.ObjectId
+    coach         Coach?
 }
 
 model VerificationToken {
@@ -128,4 +133,15 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Coach {
+    id     String        @id @default(auto()) @map("_id") @db.ObjectId
+    userId String        @unique @db.ObjectId
+    user   User          @relation(fields: [userId], references: [id])
+    name   String
+    num_tel         String
+    agenda Reservation[]
+    salle     Salle? @relation(fields: [salleId], references: [id])
+    salleId   String?      @db.ObjectId
 }
