@@ -31,7 +31,8 @@ export const env = createEnv({
     DISCORD_CLIENT_ID: z.string(),
     DISCORD_CLIENT_SECRET: z.string(),
     GOOGLE_PLACES_API_KEY: z.string(),
-   
+    EMAIL_FROM: z.string().email(),
+    EMAIL_PASSWORD: z.string(),
   },
 
   /**
@@ -56,7 +57,9 @@ export const env = createEnv({
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-    GOOGLE_PLACES_API_KEY: process.env.GOOGLE_PLACES_API_KEY
+    GOOGLE_PLACES_API_KEY: process.env.GOOGLE_PLACES_API_KEY,
+    EMAIL_FROM: process.env.EMAIL_FROM,
+    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
