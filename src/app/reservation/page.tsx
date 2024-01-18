@@ -10,7 +10,7 @@ export default async function Home() {
 
   return (
     <>
-      <Header></Header>
+      <Header user={session?.user}></Header>
       <div className="mb-5 mt-16 flex  min-h-screen flex-col items-center justify-center">
         <h1 className="text-3xl font-bold text-[#444] md:text-5xl ">
           Bonjour {session?.user.name}
