@@ -18,7 +18,7 @@ const Header = () => {
         </a>
         <div className={`bx bx-menu ${isNavbarActive ? 'bx-x' : ''}`} id="menu-icon" onClick={handleMenuClick}></div>
         <ul className={`navbar ${isNavbarActive ? 'active' : ''}`}>
-          <li><a href="#home">Clubs</a></li>
+          <li><a href="/carte">Clubs</a></li>
           <li><a href="#advantage">Abonnements</a></li>
           <li><a href="#about">Suivi Sportif </a></li>
           <li><a href="#about">Pourquoi Summer Fit </a></li>
