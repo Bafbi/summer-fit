@@ -1,0 +1,375 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+/* Color */
+:root {
+    --main-color: #7945f7;
+    --second-color: #ad57f9;
+    --text-color: #444;
+    --gradient: linear-gradient(#7945f7, #ad57f9);
+}
+
+*{
+    margin: 0; 
+    padding:0;    
+    font-family: "Poppins", sans-serif; 
+    box-sizing: border-box;
+    outline: none;
+    color: var(--text-color);
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
+}
+
+form{
+  height: 100%;
+  width: 100%;
+}
+
+/*-On simule un header-*/
+header{
+    height: 124px;
+}
+
+.wrapper{
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    
+}
+
+h1{
+    font-weight: 700;
+    font-size: 41px;
+}
+
+h2{
+    font-weight: 500;
+    font-size: 21px;
+}
+
+h2 span{
+    font-weight:700;
+    color: var(--main-color);
+}
+
+p{
+    font-weight: 400;
+    font-size: 12px;
+}
+
+h3{
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--main-color);
+}
+
+/*-------------------------------*/
+/*Design radio btn*/
+/*-------------------------------*/
+
+.container-radio, .container-toggle {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.radio-tile-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.input-container {
+  position: relative;
+  margin: 0.5rem;
+}
+
+.little-input-container{
+  height: 3rem;
+  width: 3rem;
+}
+
+.big-input-container{
+  height: 7rem;
+  width: 7rem;
+}
+
+.input-container input {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+}
+
+.input-container .radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: 2px solid var(--second-color);
+  border-radius: 8px;
+  transition: all 300ms ease;
+}
+
+.input-container ion-icon {
+  color: var(--second-color);
+  font-size: 3rem;
+}
+
+.input-container label {
+  color: var(--second-color);
+  font-size: 0.80rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+input:checked+.radio-tile {
+  background-color: var(--second-color);
+  box-shadow: 0 0 12px var(--second-color);
+  transform: scale(1.1);
+}
+
+input:hover+.radio-tile {
+  box-shadow: 0 0 12px var(--second-color);
+}
+
+input:checked+.radio-tile label {
+  color: white;
+}
+
+/*FIN*/
+
+/*Design toggle button*/
+
+.container-toggle{
+  transition: 0.5s;
+  transition-delay: 0.4s;
+  flex-direction: row;
+}
+
+.toggle_box{
+  width: 50px;
+  height: 25px;
+  display: block;
+  background-color: #d2d2d2;
+  border-radius: 1000px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.5s;
+  margin-left: 20px;
+}
+.checkboxToggle{
+  display: none;
+}
+.circle{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 0px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: 2.5px;
+  transition: 0.5s;
+}
+
+
+/*Design input*/
+
+.wrapper .input-data{
+    height: 40px;
+    width: 100%;
+    position: relative;
+    margin-top: 50px;
+  }
+
+.wrapper .input-data input{
+  position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    border: none;
+    font-size: 17px;
+    border-bottom: 2px solid silver;
+    color: var(--main-color);
+  }
+  .input-data input:focus ~ label,
+  .input-data input:valid ~ label
+  {
+    transform: translateY(-20px);
+    color: var(--second-color);
+  }
+  .wrapper .input-data label{
+    font-size: 15px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    color: grey;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  .input-data .underline{
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    bottom: 0;
+  }
+  .input-data .underline:before{
+    position: absolute;
+    left: 0;
+    content: "";
+    height: 100%;
+    width: 100%;
+    background: var(--second-color);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+  }
+  .input-data input:focus ~ .underline:before,
+  .input-data input:valid ~ .underline:before
+  {
+    transform: scaleX(1);
+  }
+
+
+  #submitBtn{
+    margin: 50px 0 100px 0;
+    padding: 10px 20px;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 20px;
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+    background: var(--main-color);
+    color: #fff;
+    border-radius: 0.5rem;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  #submitBtn:hover{
+      background: var(--second-color);
+  }
+
+/*Responsive*/
+
+/* x1.2 */
+@media screen and (min-width : 880px){
+    h1{
+        font-size: 50px;
+    }
+    
+    h2{
+        font-size: 25px;
+    }
+    
+    p{
+        font-size: 15px;
+    }
+
+    h3{
+      font-size: 18px;
+    }
+
+    .little-input-container{
+      height: 3.6rem;
+      width: 3.6rem;
+    }
+    
+    .big-input-container{
+      height: 8.4rem;
+      width: 8.4rem;
+    }
+
+    .input-container {
+      margin: 0.6rem;
+    }
+
+    .input-container label {
+      font-size: 0.96rem;
+    }
+
+    .wrapper .input-data input{
+        font-size: 21px;    
+      }
+
+      label{
+        font-size: 18px;
+      }
+
+      .input-data input:focus ~ label,
+      .input-data input:valid ~ label
+      {
+        transform: translateY(-24px);
+      }
+}
+
+/* x1.8 */
+
+@media screen and (min-width : 1400px){
+  h1{
+      font-size: 75px;
+  }
+  
+  h2{
+      font-size: 37px;
+  }
+  
+  p{
+      font-size: 22px;
+  }
+
+  h3{
+    font-size: 27px;
+  }
+
+  
+  .little-input-container{
+    height: 5.4rem;
+    width: 5.4rem;
+  }
+  
+  .big-input-container{
+    height: 12.6rem;
+    width: 12.6rem;
+  }
+
+  .input-container {
+    margin: 0.9rem;
+  }
+
+  .input-container label {
+    font-size: 1.44rem;
+  }
+
+  .wrapper .input-data input{
+    font-size: 31px;    
+  }
+
+  label{
+    font-size: 27px;
+  }
+
+  .input-data input:focus ~ label,
+      .input-data input:valid ~ label
+      {
+        transform: translateY(-36px);
+      }
+}
+

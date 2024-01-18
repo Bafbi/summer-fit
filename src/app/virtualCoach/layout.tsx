@@ -1,4 +1,4 @@
-import "~/styles/globals.css";
+import "~/styles/virtualCoach/virtualCoach_MainPage.css";
 import { cookies } from "next/headers";
 import { TRPCReactProvider } from "~/trpc/react";
 
