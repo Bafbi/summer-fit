@@ -47,7 +47,16 @@ type sessionUser =
             <a href="/virtualCoach">Suivi Sportif </a>
           </li>
           <li>
-            <a href="/reservation">Mes réservations </a>
+          {props.user ? (
+              // Profile
+              <a href="/reservation" className="">
+                Mes réservations
+              </a>
+            ) : (
+              <a href="/api/auth/signin" className="sign-up .header-btn">
+                Mes reservations
+              </a>
+            )}
           </li>
         </ul> 
         <div className="header-btn">

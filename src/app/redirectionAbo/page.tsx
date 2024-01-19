@@ -20,7 +20,7 @@ export default async function Home() {
           Désolé, vous n'avez pas accès à cette page.
         </h1>
         <h3 className="text-lg font-medium text-center  py-3">
-          Pour y accèder veillez vous connecter:
+          Pour y accèder veuillez vous connecter:
         </h3>
         <Link
           href="/api/auth/signin"
