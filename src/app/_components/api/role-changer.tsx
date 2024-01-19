@@ -1,8 +1,7 @@
 "use client";
 
 import { $Enums, type User } from "@prisma/client";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
 import { api } from "~/trpc/react";
 
@@ -12,10 +11,6 @@ export function RoleChanger(props: { user: User }) {
   const setRoleApi = api.utilisateur.setRole.useMutation({});
 
   const [role, setRole] = useState<User["role"]>(user.role);
-
-  useEffect(() => {
-    
-    }, [role, user.id]);
 
   return (
     <select
