@@ -52,7 +52,7 @@ type sessionUser =
           <li>
             {props.user ? (
               // Profile
-              <a href="/compte" className="">
+              <a href="/client" className="">
                 Mon compte
               </a>
             ) : (
