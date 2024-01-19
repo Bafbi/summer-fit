@@ -12,7 +12,7 @@ import { getServerAuthSession } from "~/server/auth";
 
 export default async function Home() {
     const salles = await api.halls.getAll.query();
-    const users = await api.user.getAllUser.query();
+    const users = await api.utilisateur.getAllUser.query();
 
     const session = await getServerAuthSession();
   

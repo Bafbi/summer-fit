@@ -11,11 +11,14 @@ import {
 export const userRouter = createTRPCRouter({
 
   //On récupère le rôle du user actuellement le role du user connecté
-  setRole: protectedProcedure.input(z.object({ userId: z.string(), role: z.enum(["USER", "COACH", "ADMIN"])})).mutation(async ({ ctx }) => {
+  setRole: protectedProcedure.input(z.object({ userId: z.string(), role: z.enum(["USER", "COACH", "ADMIN"])})).mutation(async ({ ctx, input }) => {
 
     if (ctx.session.user.role !== "ADMIN") {
       throw new Error(`Vous n'avez pas les droits pour effectuer cette action.`);
-    }
+    }    
+
+    console.log(input.role);
+    
 
     return ctx.db.user.update({
       where: {

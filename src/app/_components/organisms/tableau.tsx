@@ -1,11 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import { Card, CardFooter, CardBody } from "@nextui-org/react";
-import Image from "next/image";
-import { RouterOutputs } from "~/trpc/shared";
-import { Salle } from "@prisma/client";
-
-import { api } from "~/trpc/server";
+import { type RouterOutputs } from "~/trpc/shared";
+import { DeleteSalle } from "../api/delete-salle";
 
 export default async function Tableau(props: { salles: RouterOutputs["halls"]["getAll"] }) {
   const { salles } = props;
@@ -23,7 +19,7 @@ export default async function Tableau(props: { salles: RouterOutputs["halls"]["g
               <tr>
                 <th className="px-4 py-2">Nom de la Salle</th>
                 <th className="px-4 py-2">Nombre Coach</th>
-                <th className="px-4 py-2">Modifier</th>
+                {/* <th className="px-4 py-2">Modifier</th> */}
                 <th className="px-4 py-2">Supprimer</th>
               </tr>
             </thead>
@@ -34,11 +30,11 @@ export default async function Tableau(props: { salles: RouterOutputs["halls"]["g
                   <td className="px-4 py-2 text-center">
                     {salle.nbr_coach}
                   </td>
-                  <td className="px-4 py-2 text-center">
+                  {/* <td className="px-4 py-2 text-center">
                     <Link href={`/administrateur/${salle.id}/modifier/`} className="underline">Modifier</Link>
-                  </td>
+                  </td> */}
                   <td className="px-4 py-2 text-center">
-                    <Link href = '/administrateur/'className="underline">Supprimer</Link>
+                    <DeleteSalle salleId={salle.id} >Supprimer</DeleteSalle>
                   </td>
                 </tr>
               ))}
