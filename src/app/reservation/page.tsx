@@ -4,8 +4,14 @@ import { api } from "~/trpc/server";
 import Link from "next/link";
 import Header from "../_components/organisms/Header";
 import Footer from "../_components/organisms/Footer";
+import { redirect } from "next/navigation";
 export default async function Home() {
   const session = await getServerAuthSession();
+
+  if (!session) {
+    redirect("/redirection");
+  }
+
   const reservations = await api.reservation.getAll.query();
 
   return (
@@ -70,7 +76,7 @@ export default async function Home() {
                     {reservation.salle.adresse}
                   </div>
                 </div>
-                <QRReservation reservationId={reservation.id} />
+                <QRReservation reservationId={reservation.id} userId={session.user.id} />
               </div>
             </div>
           ))}

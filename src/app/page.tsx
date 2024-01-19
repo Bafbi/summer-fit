@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+
 import Footer from "./_components/organisms/Footer";
 import Header from "./_components/organisms/Header";
 import Image from "next/image";
