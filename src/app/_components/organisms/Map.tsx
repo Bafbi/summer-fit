@@ -180,7 +180,10 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
   },
 ];
 
-function MapComponent(props: { salles: RouterOutputs["halls"]["getAll"], isConnected: boolean }) {
+function MapComponent(props: {
+  salles: RouterOutputs["halls"]["getAll"];
+  isConnected: boolean;
+}) {
   const { salles, isConnected } = props;
   const ref = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
@@ -299,9 +302,8 @@ function MapComponent(props: { salles: RouterOutputs["halls"]["getAll"], isConne
         <h2 className="pb-2 uppercase text-[#7945f7]">
           Réservation pour {selectedMarker?.name}
         </h2>
-        {(selectedMarker !== null && isConnected) ? (
-          <CreateReservation salleId={selectedMarker.id} />
-        ) : null}
+
+        <CreateReservation salleId={selectedMarker?.id ?? "a"} />
         <button
           onClick={() => setShowPopup(false)}
           className="btn hover:bg-second-color ml-20 mt-3 rounded-md bg-[#444] px-5 py-2 text-white transition-transform duration-200 ease-in-out active:scale-95"
@@ -410,12 +412,14 @@ function MapComponent(props: { salles: RouterOutputs["halls"]["getAll"], isConne
               <p className="mb-4  text-sm text-[#444]">
                 Coach(s) disponible : {selectedMarker.nbr_coach}
               </p>
-              <button
-                onClick={handleReservationClick}
-                className="btn hover:bg-second-color rounded-md bg-[#7945f7] px-5 py-2 text-white transition-transform duration-200 ease-in-out active:scale-95"
-              >
-                Réserver un créneau
-              </button>
+              {selectedMarker !== null && isConnected && (
+                <button
+                  onClick={handleReservationClick}
+                  className="btn hover:bg-second-color rounded-md bg-[#7945f7] px-5 py-2 text-white transition-transform duration-200 ease-in-out active:scale-95"
+                >
+                  Réserver un créneau
+                </button>
+              )}
             </div>
           )}
           {showPopup && <ReservationPopup />}

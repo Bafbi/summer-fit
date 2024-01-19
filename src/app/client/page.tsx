@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+
 // Import des bibliothèques et des composants nécessaires
 import React, { useState } from 'react';
 import Header from '../_components/organisms/Header';
