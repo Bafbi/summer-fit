@@ -101,18 +101,19 @@ header {
     color: var(--text-color);
     font-weight: 500;
 }
-.header-btn.sign-up {
+.header-btn .sign-in {
     background: var(--main-color);
     color: #fff;
     border-radius: 0.5rem;
     transition: transform 0.2s ease-in-out;
 }
-.sign-up:hover{ 
+.sign-in:hover{ 
     color: var(--main-color);
 }
-.header-btn.sign-up:hover {
+.header-btn .sign-in:hover {
     background: var(--second-color);
 }
+
 
 /* Responsive */
 @media (max-width: 991px) {

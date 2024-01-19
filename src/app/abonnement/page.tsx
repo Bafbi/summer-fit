@@ -2,6 +2,7 @@ import Footer from "../_components/organisms/Footer";
 import Header from "../_components/organisms/Header";
 import React from "react";
 import "~/styles/accueil.css"; 
+import '~/styles/abonnement.css'; // Import your CSS file
 import "~/styles/header.css"; 
 // Import your CSS file
 import Or from "/public/assets/images/or.svg";
@@ -20,14 +21,14 @@ const App = async () => {
     <>
       <Header user={session?.user} />
 
+      <div className="image-container">
+      <div className="overlay-text">Nos différents abonnements</div>
+    </div>
 <main className="px-4">
   
 
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <h1 className="text-[#444] mb-6 pt-4 text-3xl font-semibold underline">
-            Nos différents abonnements 
-          </h1>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             {/* Carte d'offre 1 */}
