@@ -45,7 +45,9 @@ html::-webkit-scrollbar-thumb {
     background-color: var(--text-color);
     border-radius: 5rem;
 }
-
+li .ok{
+    display: none;
+}
 /* Header */
 header {
     position: fixed;
@@ -115,6 +117,9 @@ header {
 @media (max-width: 991px) {
     header {
         padding: 18px 40px;
+    }
+    li .ok{
+        display: block;
     }
 }
 @media (max-width: 881px) {
