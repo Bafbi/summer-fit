@@ -24,9 +24,9 @@ export function AbonneBouton({
   return (
     <button
       onClick={() => abonne.mutate({ plan })}
-      className="bg-[#7945f7] text-white px-8 py-2 rounded-lg transition-transform transform hover:bg-[#ad57f9] active:scale-95"
+      className="bg-[#7945f7] text-white my-4 px-8 py-2 rounded-lg transition-transform transform hover:bg-[#ad57f9] active:scale-95"
     >
-      {abonne.isLoading ? <span>aa</span> : <div>{children}</div>}
+      {abonne.isLoading ? <span className="mr-2 text-green-500">&#10004;</span> : <div>{children}</div>}
     </button>
   );
 }

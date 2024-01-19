@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from "react";
-import { api } from "~/trpc/server";
-import { RequestChatGpt } from "~/app/_components/api/requestChatGpt";
+import {Input, Link} from "@nextui-org/react";
+import "~/styles/virtualCoach/newTrainingProgram.css";
 
-export default function App() {
+import coachImg from "../../../public/assets/images/coach.png";
+import Header from "~/app/_components/organisms/Header";
+
+export default async function App() {
   
   
 
@@ -10,9 +13,7 @@ export default function App() {
 
   return (
     <>
-        <header>
-        
-        </header>
+     
         <main>
             <div className="wrapper">
                 <h1>Bonne nouvelle !</h1>

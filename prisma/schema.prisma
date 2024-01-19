@@ -115,8 +115,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    role          Role?
-    abonnement    Abonnement?
+    role          Role         @default(USER)
+    abonnement    Abonnement  @default(BRONZE)
     posts         Post[]
     reservations  Reservation[]
 }

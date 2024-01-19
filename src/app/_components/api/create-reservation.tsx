@@ -23,21 +23,21 @@ export function CreateReservation(props: { salleId: string }) {
         e.preventDefault();
         createReservation.mutate({ salleId, datetime });
       }}
-      className="flex flex-col gap-2 bg-secondary p-4 rounded-xl"
+      className="flex flex-col gap-2 bg-[#eeeff0] p-4 rounded-xl"
     >
         <label className="font-semibold">Date et heure</label>
       <input
         type="datetime-local"
         value={datetime.toISOString().slice(0, 16)}
         onChange={(e) => setDatetime(new Date(e.target.value))}
-        className="bg-surface-variant w-full rounded-full px-4 py-2"
+        className="bg-[#cecdcd] w-full rounded-full px-4 py-2"
       />
       <button
         type="submit"
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
+        className="btn bg-[#7945f7] text-white py-2 px-5 mt-3 rounded-md transition-transform duration-200 ease-in-out hover:bg-second-color active:scale-95"
         disabled={createReservation.isLoading}
       >
-        {createReservation.isLoading ? "Submitting..." : "Submit"}
+        {createReservation.isLoading ? "Envoie en cours..." : "Envoyer"}
       </button>
       <span className=" text-error">{createReservation.isError ? createReservation.error.message : null}</span>
     </form>

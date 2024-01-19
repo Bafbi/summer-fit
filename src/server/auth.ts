@@ -6,6 +6,7 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+import Email from "next-auth/providers/email";
 
 import { env } from "~/env";
 import { db } from "~/server/db";
@@ -30,9 +31,9 @@ declare module "next-auth" {
 
   interface User {
     // ...other properties
-      // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
     role: $Enums.Role | null;
-      // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
     abonnement: $Enums.Abonnement | null;
   }
 }
@@ -55,8 +56,25 @@ export const authOptions: NextAuthOptions = {
         abonnement: user.abonnement,
       },
     }),
+
+    async signIn({ user }) {
+      const userExists = await db.user.findUnique({
+        where: {
+          email: user.email ?? undefined,
+        },
+      });
+
+      if (userExists) {
+        return true;   //if the email exists in the User collection, email them a magic login link
+      } else {
+        return "/register";
+      }
+
+     
+    },
   },
   adapter: PrismaAdapter(db),
+
   providers: [
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
@@ -71,6 +89,16 @@ export const authOptions: NextAuthOptions = {
      *
      * @see https://next-auth.js.org/providers/github
      */
+    Email({
+      server: {
+        service: "gmail",
+        auth: {
+          user: env.EMAIL_FROM,
+          pass: env.EMAIL_PASSWORD,
+        },
+      },
+      from: env.EMAIL_FROM,
+    }),
   ],
 };
 
