@@ -24,10 +24,7 @@ body{
     
 }
 
-header{
-    height: 124px;
-    background-color: red;
-}
+
 
 .wrapper{
     flex-grow: 1;
