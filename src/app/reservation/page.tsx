@@ -4,30 +4,35 @@ import { api } from "~/trpc/server";
 import Link from "next/link";
 import Header from "../_components/organisms/Header";
 import Footer from "../_components/organisms/Footer";
+import '~/styles/reservation.css'; // Import your CSS file
+
 export default async function Home() {
   const session = await getServerAuthSession();
   const reservations = await api.reservation.getAll.query();
 
   return (
     <>
-      <Header user={session?.user}></Header>
-      <div className="mb-5 mt-16 flex  min-h-screen flex-col items-center justify-center">
-        <h1 className="text-3xl font-bold text-[#444] md:text-5xl ">
-          Bonjour {session?.user.name}
-        </h1>
-        <h3 className="py-4 text-[#444]">Voici vos reservation</h3>
-
-        <main className="w-full max-w-screen-md">
+      <Header user={session?.user}></Header>   
+      <div className="image-container">
+      <div className="overlay-text">MES Réservations</div>
+      </div>
+      <div className=" items-center justify-center ">
+        <h3 className="pt-8 text-2xl font-black uppercase px-[8%] text-[#444]">Bonjour {session?.user.name} 💪​, voici vos réservations</h3>
+        
+        <main className="w-full max-w-screen-md ">
           {reservations.map((reservation) => (
             <div
               key={reservation.id}
-              className=" m-4   transform rounded-lg bg-[#eeeff0] p-4 transition-transform hover:scale-105"
+              className=" m-4  mx-[13%]  rounded-lg flex bg-[#eeeff0] p-4"
             >
-              <h2 className="text-2xl font-semibold text-[#444]">
-                Reservation à {reservation.salle.name} le{" "}
+              <div className="">
+              <h2 className="text-2xl font-semibold text-[#7945f7]">
+                Reservation à {reservation.salle.name}
+              </h2>
+              <h2 className="text-lg  font-semibold text-[#444]">
                 {new Date(reservation.date).toLocaleDateString()} à {new Date(reservation.date).toLocaleTimeString()}
               </h2>
-              <div className="ml-4 flex flex-row justify-between pr-8 p-2">
+              <div className=" flex flex-row justify-between pr-8 mt-2">
                 <div>
                   <div className="mt-2 flex items-center">
                     <svg
@@ -70,12 +75,16 @@ export default async function Home() {
                     {reservation.salle.adresse}
                   </div>
                 </div>
-                <QRReservation reservationId={reservation.id} />
+                </div>       
               </div>
+                <div className="ml-20">
+                <QRReservation reservationId={reservation.id} />
+                </div>  
             </div>
           ))}
         </main>
       </div>
+      <span className="text-[#fff]"> . <br/>. <br/>. <br/>. <br/>. <br/>. <br/>. <br/>. <br/>. <br/>. <br/>. <br/>. <br/>. <br/>. <br/></span>
       <Footer></Footer>
     </>
   );
