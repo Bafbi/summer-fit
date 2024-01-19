@@ -14,7 +14,7 @@ export function QRReservation(props: { reservationId: string , userId: string}) 
     setShowPopup(false);
   };
 
-  const url = `http://localhost:3000/reservation/validate/${props.reservationId}/${props.userId}`
+  const url = `http://summer-fit.vercel.app/reservation/validate/${props.reservationId}/${props.userId}`
 
   if (showPopup) {
     return (
