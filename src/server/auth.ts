@@ -69,7 +69,7 @@ export const authOptions: NextAuthOptions = {
       if (userExists) {
         return true;   //if the email exists in the User collection, email them a magic login link
       } else {
-        return "/register";
+        return "/client/info";
       }
 
      
