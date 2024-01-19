@@ -15,16 +15,16 @@ export default async function Home() {
     <>
       <Header />
 
-      <main className=" flex flex-col items-center justify-center min-h-[100vh]">
-        <h1 className="text-3xl font-semibold text-center  py-3">
+      <main className=" flex flex-col items-center justify-center min-h-[88vh]">
+        <h1 className="text-3xl font-semibold text-center ">
           Désolé, vous n'avez pas accès à cette page.
         </h1>
         <h3 className="text-lg font-medium text-center  py-3">
-          Pour y accèder veillez vous connecter:
+          Pour y accèder veuillez vous connecter:
         </h3>
         <Link
           href="/api/auth/signin"
-          className="bg-purple-600 text-white px-6 py-3 rounded-lg transition-transform transform hover:scale-105"
+          className="bg-[#7945f7] text-white px-6 py-3 rounded-lg transition-transform transform hover:scale-105"
         >
           Se connecter
         </Link>

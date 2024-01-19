@@ -41,7 +41,7 @@ export default async function Home() {
           Mes réservations
         </Link> 
         <Link
-          href="/api/auth/signin"
+          href="/api/auth/signout"
           className="bg-red-600 text-white px-6 py-3 mt-9 rounded-lg transition-transform transform hover:scale-105"
         >
           Se déconnecter :/
