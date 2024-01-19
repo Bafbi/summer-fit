@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+:root {
+    --main-color: #7945f7;
+    --second-color: #ad57f9;
+    --text-color: #444;
+    --gradient: linear-gradient(#7945f7, #ad57f9);
+}
+
+#button {
+    background: var(--main-color);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 0.5rem;
+    transition: transform 0.2s ease-in-out;
+}
+#button:hover {
+    background: var(--second-color);
+}
+#button:active {
+    transform: scale(0.95);
+}
 @layer components {
   
  

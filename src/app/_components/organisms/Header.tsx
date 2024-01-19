@@ -47,12 +47,22 @@ type sessionUser =
             <a href="/virtualCoach">Suivi Sportif </a>
           </li>
           <li>
-            <a href="/reservation">Mes réservations </a>
+          {props.user ? (
+              // Profile
+              <a href="/reservation" className="">
+                Mes réservations
+              </a>
+            ) : (
+              <a href="/api/auth/signin" className="sign-up .header-btn">
+                Mes reservations
+              </a>
+            )}
           </li>
-          <li>
+        </ul> 
+        <div className="header-btn">
             {props.user ? (
               // Profile
-              <a href="/compte" className="">
+              <a href="/client" className="">
                 Mon compte
               </a>
             ) : (
@@ -60,8 +70,7 @@ type sessionUser =
                 Se Connecter
               </a>
             )}
-          </li>
-        </ul>
+        </div>
       </header>
     );
   };

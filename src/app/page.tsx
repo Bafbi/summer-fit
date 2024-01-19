@@ -1,13 +1,20 @@
+/* eslint-disable react/no-unescaped-entities */
+
 import Footer from "./_components/organisms/Footer";
 import Header from "./_components/organisms/Header";
 import Image from "next/image";
 import React from "react";
 import { getServerAuthSession } from "~/server/auth";
 import "~/styles/accueil.css";
+import { redirect } from "next/navigation";
+
 
 export default async function App() {
-
   const session = await getServerAuthSession();
+
+  if (session && !session.user.name) {
+    redirect("/client/info");
+  }
 
   return (
     <>
@@ -251,5 +258,4 @@ export default async function App() {
       <Footer></Footer>
     </>
   );
-};
-
+}

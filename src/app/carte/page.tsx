@@ -24,7 +24,7 @@ export default async function Home() {
       <div className="overlay-text">Nos salles de sport</div>
     </div>
         <main className=' m-20 mb-0'>
-          <Map salles={salles} />
+          <Map salles={salles} isConnected={session !== null} />
         </main>
       </div>  
       <Footer />

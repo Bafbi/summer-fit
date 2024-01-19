@@ -180,13 +180,15 @@ const customMapStyles: google.maps.MapTypeStyle[] = [
   },
 ];
 
-function MapComponent(props : {salles: RouterOutputs["halls"]["getAll"]}) {
-  const { salles } = props;
+function MapComponent(props: {
+  salles: RouterOutputs["halls"]["getAll"];
+  isConnected: boolean;
+}) {
+  const { salles, isConnected } = props;
   const ref = useRef<HTMLDivElement>(null);
   const map = useRef<google.maps.Map | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<Salle | null>(null);
   const [searchTerm, setSearchTerm] = useState(""); // Ajouté pour la barre de recherche
-
 
   const [showPopup, setShowPopup] = useState(false); // État pour le popup
 
@@ -196,15 +198,13 @@ function MapComponent(props : {salles: RouterOutputs["halls"]["getAll"]}) {
   };
 
   const filteredSalles = salles.filter((salle) =>
-  salle.name.toLowerCase().includes(searchTerm.toLowerCase())
-);  
+    salle.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
-
-const handleSalleClick = (salle: Salle) => {
-  setSelectedMarker(salle);
-  setSearchTerm(""); // Réinitialiser la barre de recherche
-  
-};
+  const handleSalleClick = (salle: Salle) => {
+    setSelectedMarker(salle);
+    setSearchTerm(""); // Réinitialiser la barre de recherche
+  };
   const defaultLocation: google.maps.LatLngLiteral = {
     lat: 50.6333,
     lng: 3.0667,
@@ -271,7 +271,10 @@ const handleSalleClick = (salle: Salle) => {
   useEffect(() => {
     if (selectedMarker && map.current) {
       const marker = new google.maps.Marker({
-        position: { lat: selectedMarker.latitude, lng: selectedMarker.longitude },
+        position: {
+          lat: selectedMarker.latitude,
+          lng: selectedMarker.longitude,
+        },
         map: map.current,
         title: selectedMarker.name,
         icon: {
@@ -287,95 +290,140 @@ const handleSalleClick = (salle: Salle) => {
     }
   }, [selectedMarker]);
 
-  const [isGood, setIsGood] = useState(true)
-
-
+  const [isGood, setIsGood] = useState(true);
 
   const closePopup = () => {
     setShowPopup(false); // Cacher le popup
   };
-  
 
-  
   const ReservationPopup = () => (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
-      <div className="bg-white p-5 rounded shadow-lg font-black ">
-        <h2 className="text-[#7945f7] uppercase pb-2">Réservation pour {selectedMarker?.name}</h2>
-        <CreateReservation salleId="65a7972b05b02b0409551ffb" />
+      <div className="rounded bg-white p-5 font-black shadow-lg ">
+        <h2 className="pb-2 uppercase text-[#7945f7]">
+          Réservation pour {selectedMarker?.name}
+        </h2>
 
-        <button onClick={() => setShowPopup(false)} 
-            className="btn bg-[#444] text-white py-2 px-5 mt-3 ml-20 rounded-md transition-transform duration-200 ease-in-out hover:bg-second-color active:scale-95"
-          >
+        <CreateReservation salleId={selectedMarker?.id ?? "a"} />
+        <button
+          onClick={() => setShowPopup(false)}
+          className="btn hover:bg-second-color ml-20 mt-3 rounded-md bg-[#444] px-5 py-2 text-white transition-transform duration-200 ease-in-out active:scale-95"
+        >
           Fermer
         </button>
       </div>
     </div>
   );
   return (
-      <div className="flex flex-col px-4 md:flex-row ">
-        <div className="">
-          <input
-            type="text"
-            placeholder="Recherchez une salle"
-            className="border-[#eeeff0] block w-full rounded-md border p-3"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            aria-label="Recherchez une salle"
-          />
-          <div className={`absolute z-10 mt-1 bg-white w-[20%] rounded-md shadow-lg ${searchTerm ? 'block' : 'hidden'}`}>
-            {searchTerm && filteredSalles.map((salle) => (
+    <div className="flex flex-col px-4 md:flex-row ">
+      <div className="">
+        <input
+          type="text"
+          placeholder="Recherchez une salle"
+          className="block w-full rounded-md border border-[#eeeff0] p-3"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          aria-label="Recherchez une salle"
+        />
+        <div
+          className={`absolute z-10 mt-1 w-[20%] rounded-md bg-white shadow-lg ${searchTerm ? "block" : "hidden"}`}
+        >
+          {searchTerm &&
+            filteredSalles.map((salle) => (
               <div
                 key={salle.id}
                 onClick={() => handleSalleClick(salle)}
-                className="cursor-pointer hover:bg-gray-200 p-2"
+                className="hover:bg-gray-200 cursor-pointer p-2"
               >
                 {salle.name}
               </div>
             ))}
-          </div>
-          <div className={`mt-${searchTerm ? filteredSalles.length * 8 : 0}`}>
-            {selectedMarker && (
-      
-          <div className="mt-4 bg-[#eeeff0] rounded-lg p-7">
-            <h3 className="text-lg font-semibold uppercase text-[#7945f7] font-black pb-2">{selectedMarker.name}</h3>
-            <div className="flex items-center mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className=" mr-2 w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-</svg>
+        </div>
+        <div className={`mt-${searchTerm ? filteredSalles.length * 8 : 0}`}>
+          {selectedMarker && (
+            <div className="mt-4 rounded-lg bg-[#eeeff0] p-7">
+              <h3 className="pb-2 text-lg font-black font-semibold uppercase text-[#7945f7]">
+                {selectedMarker.name}
+              </h3>
+              <div className="mb-2 flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className=" mr-2 h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                  />
+                </svg>
 
-      {selectedMarker.adresse}
-    </div>
-   
-            <div className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="mr-2 w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-</svg>
-       <span> {selectedMarker.heure_ouverture[0]}-{selectedMarker.heure_fermeture[0]}</span>
-    </div>
-    <div className="flex items-center mt-2">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 mr-2">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
-      </svg>
-      {selectedMarker.num_tel}
-    </div>
-            <p className="text-[#444] text-sm mt-3 mb-1">
-              Capacité : {selectedMarker.capacite}
-            </p>
-            <p className="text-[#444]  text-sm mb-4">
-              Coach(s) disponible : {selectedMarker.nbr_coach} 
-            </p>
-          <button
-            onClick={handleReservationClick}
-            className="btn bg-[#7945f7] text-white py-2 px-5 rounded-md transition-transform duration-200 ease-in-out hover:bg-second-color active:scale-95"
-          
-          >
-            Réserver un créneau
-          </button>
-          </div>
-            )}
-             {showPopup && <ReservationPopup />}
-      </div>
+                {selectedMarker.adresse}
+              </div>
+
+              <div className="flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="mr-2 h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+                <span>
+                  {" "}
+                  {selectedMarker.heure_ouverture[0]}-
+                  {selectedMarker.heure_fermeture[0]}
+                </span>
+              </div>
+              <div className="mt-2 flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="mr-2 h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"
+                  />
+                </svg>
+                {selectedMarker.num_tel}
+              </div>
+              <p className="mb-1 mt-3 text-sm text-[#444]">
+                Capacité : {selectedMarker.capacite}
+              </p>
+              <p className="mb-4  text-sm text-[#444]">
+                Coach(s) disponible : {selectedMarker.nbr_coach}
+              </p>
+              {selectedMarker !== null && isConnected && (
+                <button
+                  onClick={handleReservationClick}
+                  className="btn hover:bg-second-color rounded-md bg-[#7945f7] px-5 py-2 text-white transition-transform duration-200 ease-in-out active:scale-95"
+                >
+                  Réserver un créneau
+                </button>
+              )}
+            </div>
+          )}
+          {showPopup && <ReservationPopup />}
+        </div>
       </div>
       <div className="border-gray-300 mt-4 w-full border md:ml-72 md:mr-2 md:mt-0 md:w-full md:max-w-[400px]">
         <div ref={ref} className="h-[400px]" />
@@ -383,10 +431,13 @@ const handleSalleClick = (salle: Salle) => {
     </div>
   );
 }
-export default function Map(props : {salles: RouterOutputs["halls"]["getAll"]}) {
+export default function Map(props: {
+  salles: RouterOutputs["halls"]["getAll"];
+  isConnected: boolean;
+}) {
   return (
     <Wrapper apiKey={env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} render={render}>
-      <MapComponent salles={props.salles} />
+      <MapComponent salles={props.salles} isConnected={props.isConnected} />
     </Wrapper>
   );
 }

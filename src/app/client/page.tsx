@@ -15,20 +15,38 @@ export default async function Home() {
 
   return (
     <>
-      <Header />
+      <Header user={session?.user} />
 
       <main className=" flex flex-col items-center justify-center min-h-[100vh]">
         <h1 className="text-3xl font-semibold text-center  py-3">
-          Désolé, {session?.user.name}, vous n'avez pas accès à cette page.
+          Connecté avec {session?.user.name}
+        </h1>
+        <h1 className="text-3xl font-semibold text-center  py-3">
+        Vous avez actuellement l'abonnement {session?.user.abonnement}.
         </h1>
         <h3 className="text-lg font-medium text-center  py-3">
-          Pour y accèder améliorer votre abonnement :
+          Pour améliorer votre abonnement :
         </h3>
         <Link
           href="/abonnement"
           className="bg-purple-600 text-white px-6 py-3 rounded-lg transition-transform transform hover:scale-105"
         >
           Changer d'abonnement
+        </Link>
+        <h3 className="text-lg font-medium text-center  py-3">
+          Pour accèder à vos réservations:
+        </h3>
+        <Link
+          href="/reservation"
+          className="bg-purple-600 text-white px-6 py-3 rounded-lg transition-transform transform hover:scale-105"
+        >
+          Mes réservations
+        </Link> 
+        <Link
+          href="/api/auth/signout"
+          className="bg-red-600 text-white px-6 py-3 mt-9 rounded-lg transition-transform transform hover:scale-105"
+        >
+          Se déconnecter :/
         </Link>
       </main>
 

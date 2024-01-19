@@ -14,7 +14,7 @@ import { newTrainingRouter } from "./routers/newTraining";
 export const appRouter = createTRPCRouter({
   post: postRouter,
   halls: hallsRouter,
-  user: userRouter,
+  utilisateur: userRouter,
   reservation: reservationRouter,
   abonnement: subscriptionRouter,
   newTraining: newTrainingRouter,

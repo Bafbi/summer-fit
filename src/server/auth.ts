@@ -57,21 +57,6 @@ export const authOptions: NextAuthOptions = {
       },
     }),
 
-    async signIn({ user }) {
-      const userExists = await db.user.findUnique({
-        where: {
-          email: user.email ?? undefined,
-        },
-      });
-
-      if (userExists) {
-        return true;   //if the email exists in the User collection, email them a magic login link
-      } else {
-        return "/register";
-      }
-
-     
-    },
   },
   adapter: PrismaAdapter(db),
 
