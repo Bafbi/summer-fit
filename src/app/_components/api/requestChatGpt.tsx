@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @typescript-eslint/non-nullable-type-assertion-style */
 "use client";
 import "~/styles/virtualCoach/newTrainingProgram.css";
 import { useState,useEffect } from "react";
@@ -23,13 +25,13 @@ export function RequestChatGpt({ onDataUpdate }:RequestChatGptProps){
       const [etatAvancement, setEtatAvancement ] = useState(1)
 
       useEffect(() => {
-        let toggle_box1 = document.querySelector(".toggle_box1") as HTMLElement;
-        let circle1 = document.querySelector(".circle1") as HTMLElement;
-        let checkbox1 = document.getElementById("sante") as HTMLInputElement;
+        const toggle_box1 = document.querySelector(".toggle_box1") as HTMLElement;
+        const circle1 = document.querySelector(".circle1") as HTMLElement;
+        const checkbox1 = document.getElementById("sante") as HTMLInputElement;
     
-        let toggle_box2 = document.querySelector(".toggle_box2") as HTMLElement;
-        let circle2 = document.querySelector(".circle2") as HTMLElement;
-        let checkbox2 = document.getElementById("blesse") as HTMLInputElement;
+        const toggle_box2 = document.querySelector(".toggle_box2") as HTMLElement;
+        const circle2 = document.querySelector(".circle2") as HTMLElement;
+        const checkbox2 = document.getElementById("blesse") as HTMLInputElement;
     
         toggle_box1.onclick = function () {
           if (checkbox1.checked) {

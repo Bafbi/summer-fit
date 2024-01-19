@@ -34,10 +34,10 @@ export const newTrainingRouter = createTRPCRouter({
         lieu : z.string()
     }))
     .mutation(async ({ ctx, input }) => {
-        let prompt: string = "Tu es mon coach sportif, je souhaite un programme sportif ayant les objectifs suivants : ";
+        let prompt = "Tu es mon coach sportif, je souhaite un programme sportif ayant les objectifs suivants : ";
     
         //On ajout les objectifs
-        for (var i = 0; i < input.objectifs.length; i++) {
+        for (let i = 0; i < input.objectifs.length; i++) {
         prompt += input.objectifs[i];
         
         if(i+1 != input.objectifs.length){
@@ -59,7 +59,7 @@ export const newTrainingRouter = createTRPCRouter({
         prompt += "Je veux m'entrainer ";
         prompt += input.jours.length;
         prompt += " fois dans la semaine et je souhaite que mes jours d'entrainements soit : "
-        for (var i = 0; i < input.jours.length; i++) {
+        for (let i = 0; i < input.jours.length; i++) {
             prompt += input.jours[i];
         
             if(i+1 != input.jours.length){
