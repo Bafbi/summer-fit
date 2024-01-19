@@ -1,0 +1,23 @@
+{
+    "programme_sportif": {
+      "objectifs": ["perte de poids", "remise en forme"],
+      "lieu_entrainement": "salle de sport",
+      "equipement_disponible": [],
+      "difficultes_exercice" : "intermédiaire",
+      "frequence_entrainement": 2,
+      "jours_entrainement": [
+          {"jour": "dimanche",
+          "exercices": [
+          {"exercice": "banc abdominaux", "séries": 6, "repetitions": 15, "duree_minutes": 15},
+          {"exercice": "crunch", "séries": 4, "repetitions": 30, "duree_minutes": 10}
+          ]},
+       
+        {
+          "jour": "samedi",
+          "exercices": [
+          {"exercice": "cage à squat", "séries": 5, "repetitions": 15, "duree_minutes": 30},
+          {"exercice": "rameur", "séries": 2, "repetition" : 0, "duree_minutes": 10}
+          ]}
+      ]
+    }
+  }
