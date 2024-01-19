@@ -49,7 +49,8 @@ type sessionUser =
           <li>
             <a href="/reservation">Mes réservations </a>
           </li>
-          <li>
+        </ul> 
+        <div className="header-btn">
             {props.user ? (
               // Profile
               <a href="/client" className="">
@@ -60,8 +61,7 @@ type sessionUser =
                 Se Connecter
               </a>
             )}
-          </li>
-        </ul>
+        </div>
       </header>
     );
   };
