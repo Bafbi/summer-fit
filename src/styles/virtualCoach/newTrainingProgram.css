@@ -21,7 +21,6 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    
 }
 
 form{
@@ -29,18 +28,16 @@ form{
   width: 100%;
 }
 
-/*-On simule un header-*/
-header{
-    height: 124px;
-}
-
 .wrapper{
+  position: absolute;
     flex-grow: 1;
     width: 100%;
     max-width: 1900px;
     margin: 0 auto;
     text-align: center;
     padding: 20px;
+
+    top:91px;
 
     display: flex;
     flex-direction: column;
@@ -371,5 +368,29 @@ input:checked+.radio-tile label {
       {
         transform: translateY(-36px);
       }
+}
+
+/*Loader*/
+.containerLoader{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loader {
+  margin-top: 20px;
+  border: 20px solid #EAF0F6;
+  border-radius: 50%;
+  border-top: 20px solid var(--main-color);
+  width: 200px;
+  height: 200px;
+  animation: spinner 4s linear infinite;
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
