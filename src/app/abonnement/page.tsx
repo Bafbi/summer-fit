@@ -1,10 +1,9 @@
 import Footer from "../_components/organisms/Footer";
 import Header from "../_components/organisms/Header";
 import React from "react";
-import "~/styles/accueil.css";
-import "~/styles/abonnement.css"; // Import your CSS file
-import "~/styles/header.css";
-// Import your CSS file
+import "~/styles/accueil.css"; 
+import '~/styles/abonnement.css'; // Import your CSS file
+import "~/styles/header.css"; 
 import Or from "/public/assets/images/or.svg";
 import Argent from "/public/assets/images/argent.svg";
 import Diamand from "/public/assets/images/diamond.svg";
