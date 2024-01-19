@@ -12,6 +12,10 @@ const session = await getServerAuthSession()
 if (session?.user.abonnement == "ARGENT" || session?.user.abonnement == "BRONZE" ){
     redirect("/redirection")
 }
+
+if (!session ){
+    redirect("/redirectionAbo")
+}
   return (
     <>
         <Header user = {session?.user}/>
