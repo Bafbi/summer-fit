@@ -95,7 +95,7 @@ const App = async () => {
                 />
               </div>
               <h3 className="mb-2 text-center text-xl font-semibold text-[#7945f7]">
-                <span>Or</span>
+                <span className="uppercase">Or</span>
               </h3>
               <ul className="mb-4 pl-6 text-left text-gray-600">
                 <li className="mb-2">
@@ -148,7 +148,7 @@ const App = async () => {
                 />
               </div>
               <h3 className="mb-2 text-center text-xl font-semibold text-[#7945f7]">
-                <span>Diamant</span>
+                <span className="uppercase">Diamant</span>
               </h3>
               <ul className="mb-4 pl-6 text-left text-gray-600">
                 <li className="mb-2">
