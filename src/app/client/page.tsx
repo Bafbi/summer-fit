@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Header from '../_components/organisms/Header';
 import Footer from '../_components/organisms/Footer';
 import { getServerAuthSession } from '~/server/auth';
+import '~/styles/profil.css'; // Import your CSS file
 import Link from 'next/link';
 
 // Fonction principale de la page d'accueil
@@ -16,40 +17,35 @@ export default async function Home() {
   return (
     <>
       <Header user={session?.user} />
-
-      <main className=" flex flex-col items-center justify-center min-h-[100vh]">
-        <h1 className="text-3xl font-semibold text-center  py-3">
+      <div className="image-container">
+        <div className="overlay-text">Mon Profil </div>
+      </div>
+      <main className=" flex flex-col   ">
+        <h1 className="text-3xl font-semibold text-[#7945f7] mt-5 ml-[7%] uppercase py-3">
           Connecté avec {session?.user.name}
         </h1>
-        <h1 className="text-3xl font-semibold text-center  py-3">
-        Vous avez actuellement l'abonnement {session?.user.abonnement}.
+        <h1 className="text-xl font-semibold ml-[7%]  text-[#444]">
+        Vous avez actuellement l'abonnement   <span className='text-[#7945f7]'>{session?.user.abonnement}</span>.
         </h1>
-        <h3 className="text-lg font-medium text-center  py-3">
-          Pour améliorer votre abonnement :
-        </h3>
+        <div className="flex ml-[7%] mt-2">
         <Link
           href="/abonnement"
-          className="bg-purple-600 text-white px-6 py-3 rounded-lg transition-transform transform hover:scale-105"
+          className="my-4 transform rounded-lg mr-5 uppercase font-black  bg-[#7945f7] px-8 py-2 text-white transition-transform active:scale-95"
         >
           Changer d'abonnement
         </Link>
-        <h3 className="text-lg font-medium text-center  py-3">
-          Pour accèder à vos réservations:
-        </h3>
-        <Link
-          href="/reservation"
-          className="bg-purple-600 text-white px-6 py-3 rounded-lg transition-transform transform hover:scale-105"
-        >
-          Mes réservations
-        </Link> 
         <Link
           href="/api/auth/signout"
-          className="bg-red-600 text-white px-6 py-3 mt-9 rounded-lg transition-transform transform hover:scale-105"
+          className="my-4 transform rounded-lg uppercase font-black  bg-[#ee0028] px-8 py-2 text-white transition-transform active:scale-95"
         >
-          Se déconnecter :/
-        </Link>
+          Se déconnecter
+        </Link></div>
       </main>
 
+      <span className="text-[#fff]">
+        {" "}
+        . <br />. <br />. <br />. <br />. <br />. <br />. <br />. 
+      </span>
       <Footer />
     </>
   );

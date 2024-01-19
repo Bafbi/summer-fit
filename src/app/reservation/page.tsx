@@ -58,7 +58,7 @@ export default async function Home() {
                           d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                         />
                       </svg>
-                      {reservation.salle.heure_fermeture}-
+                      {reservation.salle.heure_ouverture}-
                       {reservation.salle.heure_fermeture}
                     </div>
                     <div className="mt-2 flex items-center">

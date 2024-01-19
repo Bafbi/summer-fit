@@ -34,43 +34,10 @@ export default async function App() {
               un nouvel espace pour s'entraîner qui devient bien plus
               confortable
             </p>
-            <div className="app-stores">
-              <Image
-                src="/assets/images/App Store.png"
-                alt="Apple Store"
-                width={200}
-                height={20}
-              />
-              <Image
-                src="/assets/images/Google Play.png"
-                alt="Google Play"
-                width={200}
-                height={20}
-              />
-            </div>
+           
           </div>
 
           {/* Forms */}
-          <div className="form-container">
-            <form action="announcement.html">
-              <div className="input-box">
-                <span>Support</span>
-                <input
-                  type="search"
-                  name=""
-                  id=""
-                  placeholder="Votre problème"
-                />
-              </div>
-              <input
-                type="submit"
-                name="Une Question ?"
-                id=""
-                className="btn"
-              />
-              <a href="search.html">Contactez Nous</a>
-            </form>
-          </div>
         </section>
 
         {/* Advantage */}
