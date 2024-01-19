@@ -84,12 +84,14 @@ export default async function Home() {
                       {reservation.salle.adresse}
                     </div>
                   </div>
-                  <QRReservation
-                    reservationId={reservation.id}
-                    userId={session.user.id}
-                  />
-                </div>
+                  </div>
               </div>
+                  <div className="ml-20">
+                    <QRReservation
+                      reservationId={reservation.id}
+                      userId={session.user.id}
+                    />
+                  </div>
             </div>
           ))}
         </main>
