@@ -1,12 +1,10 @@
 # Create T3 App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Le projet Summer-Fit a pour objectif de créer une application de gestion d’une salle de sport.
 
-## What's next? How do I make an app with this?
+## Technologies utilisées
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
-
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Le stack est basé sur le T3 Stack, qui est un stack fullstack TypeScript.
 
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
@@ -14,15 +12,32 @@ If you are not familiar with the different technologies used in this project, pl
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
 
-## Learn More
+## Fonctionnalités
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+- [x] Authentification
+- [x] Gestion des utilisateurs
+- [x] Gestion des abonnements
+- [x] Reservation d'une séance
+- [x] Validation d"une reservation par qr code
+- [x] Création d'un programme d'entrainement par AI
+- [x] Pannel d'administration
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Installation
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+clonez le repository
 
-## How do I deploy this?
+```bash
+pnpm install
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Copier le fichier `.env.example` en `.env` et remplissez les variables d'environnement.
+
+```bash
+cp .env.example .env
+```
+
+### Lancer le projet
+
+```bash
+pnpm dev
+```
